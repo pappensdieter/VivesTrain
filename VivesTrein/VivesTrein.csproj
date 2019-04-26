@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VivesTrein.Domain\VivesTrein.Domain.csproj" />
+    <ProjectReference Include="..\VivesTrein.Service\VivesTrein.Service.csproj" />
+  </ItemGroup>
+
 </Project>
