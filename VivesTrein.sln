@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivesTrein", "VivesTrein\VivesTrein.csproj", "{3110E261-35F5-49C0-A456-039381071953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VivesTrein", "VivesTrein\VivesTrein.csproj", "{3110E261-35F5-49C0-A456-039381071953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivesTrein.Domain", "VivesTrein.Domain\VivesTrein.Domain.csproj", "{D28D1C66-F73B-4AE8-B12F-7D94DF35FAC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VivesTrein.Domain", "VivesTrein.Domain\VivesTrein.Domain.csproj", "{D28D1C66-F73B-4AE8-B12F-7D94DF35FAC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivesTrein.Storage", "VivesTrein.Storage\VivesTrein.Storage.csproj", "{B08EBBFC-C1D5-4318-8427-2CF0FD6F77F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VivesTrein.Storage", "VivesTrein.Storage\VivesTrein.Storage.csproj", "{B08EBBFC-C1D5-4318-8427-2CF0FD6F77F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivesTrein.Service", "VivesTrein.Service\VivesTrein.Service.csproj", "{8C0F637F-93E9-46FD-8898-5ADD6DA4FA94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VivesTrein.Service", "VivesTrein.Service\VivesTrein.Service.csproj", "{8C0F637F-93E9-46FD-8898-5ADD6DA4FA94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
