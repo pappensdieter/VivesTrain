@@ -6,22 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using VivesTrein.Service;
 using VivesTrein.Domain.Entities;
 using VivesTrein.Domain;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace VivesTrein.Controllers
 {
     public class ReisController : Controller
     {
         private ReisService reisService;
+        private StadService stadService;
 
         public ReisController()
         {
             reisService = new ReisService();
+            stadService = new StadService();
         }
 
         public IActionResult Index()
         {
-            var list = reisService.GetAll();
-            return View(list);
+            ViewBag.lstStad = new SelectList(stadService.GetAll(), "Id", "Naam");
+            return View();
         }
     }
 }

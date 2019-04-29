@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VivesTrein.Domain;
 using VivesTrein.Domain.Entities;
 
 namespace VivesTrein.Storage
