@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VivesTrein.Domain.Entities;
 
-namespace VivesTrein.Utility
+namespace VivesTrein.Utilities
 {
     public static class Seed
     {
