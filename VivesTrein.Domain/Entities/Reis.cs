@@ -5,6 +5,12 @@ namespace VivesTrein.Domain.Entities
 {
     public partial class Reis
     {
+        public Reis()
+        {
+            Boeking = new HashSet<Boeking>();
+            TreinritReis = new HashSet<TreinritReis>();
+        }
+
         public int Id { get; set; }
         public string Naam { get; set; }
         public int? VertrekstadId { get; set; }
@@ -13,5 +19,7 @@ namespace VivesTrein.Domain.Entities
 
         public Stad Bestemmingsstad { get; set; }
         public Stad Vertrekstad { get; set; }
+        public ICollection<Boeking> Boeking { get; set; }
+        public ICollection<TreinritReis> TreinritReis { get; set; }
     }
 }

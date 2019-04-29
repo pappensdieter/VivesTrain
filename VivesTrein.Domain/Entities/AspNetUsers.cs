@@ -11,6 +11,7 @@ namespace VivesTrein.Domain.Entities
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
+            Boeking = new HashSet<Boeking>();
         }
 
         public string Id { get; set; }
@@ -33,5 +34,6 @@ namespace VivesTrein.Domain.Entities
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public ICollection<Boeking> Boeking { get; set; }
     }
 }

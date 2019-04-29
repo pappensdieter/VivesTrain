@@ -143,18 +143,28 @@ namespace VivesTrein.Domain.Entities
 
             modelBuilder.Entity<Boeking>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Reis).HasColumnName("reis");
+                entity.Property(e => e.ReisId).HasColumnName("reis_id");
 
                 entity.Property(e => e.Status)
                     .HasColumnName("status")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.Reis)
+                    .WithMany(p => p.Boeking)
+                    .HasForeignKey(d => d.ReisId)
+                    .HasConstraintName("FK_Boeking_Reis");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Boeking)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Boeking_AspNetUsers");
             });
 
             modelBuilder.Entity<Reis>(entity =>
@@ -187,9 +197,7 @@ namespace VivesTrein.Domain.Entities
 
             modelBuilder.Entity<Stad>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Naam)
                     .HasColumnName("naam")
@@ -199,9 +207,11 @@ namespace VivesTrein.Domain.Entities
 
             modelBuilder.Entity<Treinrit>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Aankomst)
+                    .HasColumnName("aankomst")
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.AtlZitplaatsen).HasColumnName("atlZitplaatsen");
 
@@ -209,8 +219,8 @@ namespace VivesTrein.Domain.Entities
 
                 entity.Property(e => e.Prijs).HasColumnName("prijs");
 
-                entity.Property(e => e.Uur)
-                    .HasColumnName("uur")
+                entity.Property(e => e.Vertrek)
+                    .HasColumnName("vertrek")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.VertrekstadId).HasColumnName("vertrekstad_id");
@@ -230,17 +240,20 @@ namespace VivesTrein.Domain.Entities
             {
                 entity.ToTable("Treinrit_Reis");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Klasse).HasColumnName("klasse");
 
                 entity.Property(e => e.Plaats).HasColumnName("plaats");
 
-                entity.Property(e => e.Reis).HasColumnName("reis");
+                entity.Property(e => e.ReisId).HasColumnName("reis_id");
 
                 entity.Property(e => e.TreinritId).HasColumnName("treinrit_id");
+
+                entity.HasOne(d => d.Reis)
+                    .WithMany(p => p.TreinritReis)
+                    .HasForeignKey(d => d.ReisId)
+                    .HasConstraintName("FK_Treinrit_Reis_Reis");
 
                 entity.HasOne(d => d.Treinrit)
                     .WithMany(p => p.TreinritReis)
