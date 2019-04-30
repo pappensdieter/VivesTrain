@@ -36,7 +36,15 @@ namespace VivesTrein.Controllers
                 return BadRequest();
             }
 
-            return PartialView("_ReisPartial");
+            //temporary data, moet later van form zelf komen
+            Stad vertrekstad = stadService.FindById(1);
+            Stad aankomststad = stadService.FindById(2);
+            DateTime date = DateTime.UtcNow;
+
+            //Reis maken
+            Reis reis = reisService.MakeReis(vertrekstad, aankomststad, date);
+
+            return PartialView("_ReisPartial", reis);
         }
 
         //public IActionResult AddToCart()

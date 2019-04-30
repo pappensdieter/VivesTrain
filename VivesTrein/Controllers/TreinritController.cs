@@ -26,13 +26,6 @@ namespace VivesTrein.Controllers
 
         public ActionResult Index()
         {
-            Stad vertrekstad = stadService.FindById(1);
-            Stad aankomststad = stadService.FindById(2);
-            DateTime date = DateTime.UtcNow;
-
-            //Reis maken
-            reisService.MakeReis(vertrekstad, aankomststad, date);
-
             var list = treinritService.GetAll();
             return View(list);
         }
