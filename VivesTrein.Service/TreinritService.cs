@@ -20,5 +20,10 @@ namespace VivesTrein.Service
         {
             return treinritDAO.GetAll();
         }
+
+        public Treinrit GetClosestTreinrit(Stad vertrekstad, Stad aankomststad, DateTime date)
+        {
+            return treinritDAO.FindTreinrit(vertrekstad, aankomststad, date);
+        }
     }
 }
