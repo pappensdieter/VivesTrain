@@ -11,7 +11,6 @@ namespace VivesTrein.ViewModels
         public int VerstrekStadId { get; set; }
         public int AankomstStadId { get; set; }
         public Boolean BussinessClass { get; set; }
-        public float Prijs { get; set; }
         public System.DateTime VertrekDatum { get; set; }
 
     }
