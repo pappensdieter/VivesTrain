@@ -45,6 +45,7 @@ namespace VivesTrein.Service
                 VertrekstadId = vertrekstad.Id,
                 BestemmingsstadId = aankomststad.Id,
                 Naam = "Test"
+                
             };
 
             TreinritReis treinritreis = new TreinritReis

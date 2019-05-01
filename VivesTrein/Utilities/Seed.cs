@@ -72,7 +72,7 @@ namespace VivesTrein.Utilities
                 Treinrit rit = new Treinrit
                 {
                     VertrekstadId = steden.First().Id,
-                    BestemmingsstadId = steden.First().Id,
+                    BestemmingsstadId = steden[1].Id,
                     Prijs = prijs,
                     AtlZitplaatsen = 100,
                     Vertrek = new DateTime(2019, 04, 29, 23, 29, 00, 00),

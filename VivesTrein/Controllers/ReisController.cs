@@ -36,10 +36,11 @@ namespace VivesTrein.Controllers
                 return BadRequest();
             }
 
-            //temporary data, moet later van form zelf komen
-            Stad vertrekstad = stadService.FindById(1);
-            Stad aankomststad = stadService.FindById(2);
-            DateTime date = DateTime.UtcNow;
+            //Dat uit de VM halen
+            Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
+            Stad aankomststad = stadService.FindById(reisVM.AankomstStadId);
+            DateTime date = reisVM.VertrekDatum;
+            Boolean bussiness = reisVM.BussinessClass; // moet nog gebruikt worden
 
             //Reis maken
             Reis reis = reisService.MakeReis(vertrekstad, aankomststad, date);
@@ -47,9 +48,9 @@ namespace VivesTrein.Controllers
             return PartialView("_ReisPartial", reis);
         }
 
-        //public IActionResult AddToCart()
-        //{
-        //    return View();
-        //}
+        public IActionResult AddToCart(int? id)
+        {
+            return View();
+        }
     }
 }
