@@ -17,7 +17,7 @@ namespace VivesTrein.Service
         private ReisDAO reisDAO;
         private TreinritDAO treinritDAO;
         private TreinritHelper treinritHelper;
-        private IList<Stad> reisSteden;
+        private IList<Treinrit> treinritten;
 
         public ReisService()
         {
@@ -25,6 +25,7 @@ namespace VivesTrein.Service
             treinritDAO = new TreinritDAO();
             stadService = new StadService();
             treinritService = new TreinritService();
+            treinritten = new List<Treinrit>();
         }
 
         public IEnumerable<Reis> GetAll()
@@ -35,10 +36,23 @@ namespace VivesTrein.Service
         public Reis MakeReis(Stad vertrekstad, Stad aankomststad, DateTime date)
         {
             //Tussenstoppen opvragen
-            var route = stadService.GetTussenstoppen(vertrekstad, aankomststad);
+            IList<Stad> steden = stadService.GetTussenstoppen(vertrekstad, aankomststad);
 
-            //Treinritten opvragen
-            Treinrit treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
+
+            if(steden.Count == 2)
+            {
+                Treinrit treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
+            }
+            else if(steden.Count > 2)
+            {
+                DateTime depDate = date;
+                for (int i = 0; i < steden.Count - 1; i++)
+                {
+                    Treinrit treinrit = treinritService.GetClosestTreinrit(steden[i], steden[i + 1], depDate);
+                    treinritten.Add(treinrit);
+                    depDate = treinrit.Aankomst.Value;
+                }
+            }
 
             Reis reis = new Reis
             {
@@ -48,16 +62,18 @@ namespace VivesTrein.Service
                 
             };
 
-            TreinritReis treinritreis = new TreinritReis
-            {
-                Treinrit = treinrit,
-                Plaats = 123,
-                Klasse = true,
-                Reis = reis
-            };
-
             ICollection<TreinritReis> colTreinritreis = new Collection<TreinritReis>();
-            colTreinritreis.Add(treinritreis);
+            foreach(Treinrit treinrit in treinritten)
+            {
+                TreinritReis treinritreis = new TreinritReis
+                {
+                    Treinrit = treinrit,
+                    Plaats = 100,
+                    Klasse = false,
+                    Reis = reis
+                };
+                colTreinritreis.Add(treinritreis);
+            }
 
             reis.TreinritReis = colTreinritreis;
 

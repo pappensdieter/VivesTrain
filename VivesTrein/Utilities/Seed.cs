@@ -15,51 +15,56 @@ namespace VivesTrein.Utilities
             using (vivestrainContext db = new vivestrainContext())
             {
                 var steden = db.Stad.ToList();
+                var dateNow = DateTime.UtcNow;
 
-                foreach (Stad vertrekstad in steden)
+                for (int i = 0; i < 3; i++)
                 {
-                    foreach (Stad bestemmingsstad in steden)
+                    foreach (Stad vertrekstad in steden)
                     {
-                        if (vertrekstad != bestemmingsstad)
+                        foreach (Stad bestemmingsstad in steden)
                         {
-                            var dateNow = DateTime.UtcNow;
-                            var depDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 07, 00, 00);
-
-
-                            for (int i = 0; i < 5; i++)
+                            if (vertrekstad != bestemmingsstad)
                             {
-                                (Double reisduur, Boolean day) = FindReisduur(vertrekstad, bestemmingsstad);
-                                DateTime arrDate = new DateTime();
+                                var depDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 07, 00, 00);
 
-                                if(day)
+
+                                for (int j = 0; j < 7; j++)
                                 {
-                                    arrDate = depDate.AddDays(1);
-                                    arrDate.AddHours(reisduur);
+                                    (Double reisduur, Boolean day) = FindReisduur(vertrekstad, bestemmingsstad);
+                                    DateTime arrDate = new DateTime();
+
+                                    if(day)
+                                    {
+                                        arrDate = depDate.AddDays(1);
+                                        arrDate.AddHours(reisduur);
+                                    }
+                                    else
+                                    {
+                                        arrDate = depDate.AddHours(reisduur);
+                                    }
+
+                                    float prijs = 10;
+                                    Treinrit rit = new Treinrit
+                                    {
+                                        VertrekstadId = vertrekstad.Id,
+                                        BestemmingsstadId = bestemmingsstad.Id,
+                                        Prijs = prijs,
+                                        AtlZitplaatsen = 100,
+                                        Vertrek = depDate,
+                                        Aankomst = arrDate
+                                    };
+
+                                    await db.AddAsync(rit);
+
+                                    depDate = depDate.AddHours(2);
                                 }
-                                else
-                                {
-                                    arrDate = depDate.AddHours(reisduur);
-                                }
-
-                                float prijs = 10;
-                                Treinrit rit = new Treinrit
-                                {
-                                    VertrekstadId = vertrekstad.Id,
-                                    BestemmingsstadId = bestemmingsstad.Id,
-                                    Prijs = prijs,
-                                    AtlZitplaatsen = 100,
-                                    Vertrek = depDate,
-                                    Aankomst = arrDate
-                                };
-
-                                await db.AddAsync(rit);
-
-                                depDate = depDate.AddHours(2);
                             }
                         }
                     }
+                    dateNow = dateNow.AddDays(1);
+
+                    await db.SaveChangesAsync();
                 }
-                await db.SaveChangesAsync();
             }
         }
 

@@ -13,7 +13,7 @@ namespace VivesTrein.Controllers
     {
         public IActionResult Index()
         {
-            //Seed.CreateTreinrit().Wait();
+            //Seed.CreateTreinritten().Wait();
             return View();
         }
 
