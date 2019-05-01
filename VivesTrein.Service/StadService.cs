@@ -31,7 +31,7 @@ namespace VivesTrein.Service
             return stadDAO.GetAll();
         }
 
-        public IEnumerable<Stad> GetTussenstoppen(Stad vertrekstad, Stad aankomststad){
+        public IList<Stad> GetTussenstoppen(Stad vertrekstad, Stad aankomststad){
             var tussenstoppen = treinritHelper.FindRoute(vertrekstad, aankomststad);
 
             route.Add(vertrekstad);
@@ -42,7 +42,6 @@ namespace VivesTrein.Service
                     route.Add(stad);
                 }
             }
-            
             route.Add(aankomststad);
 
             return route;

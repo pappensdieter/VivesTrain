@@ -31,14 +31,14 @@ namespace VivesTrein.Controllers
         [HttpPost]
         public IActionResult Index(ReisVM reisVM)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest();
+            //}
 
             //temporary data, moet later van form zelf komen
             Stad vertrekstad = stadService.FindById(1);
-            Stad aankomststad = stadService.FindById(2);
+            Stad aankomststad = stadService.FindById(7);
             DateTime date = DateTime.UtcNow;
 
             //Reis maken

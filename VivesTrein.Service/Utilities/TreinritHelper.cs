@@ -17,6 +17,7 @@ namespace VivesTrein.Utilities
         {
             stadDAO = new StadDAO();
             var steden = stadDAO.GetAll();
+            tussenstops = new List<Stad>();
 
             switch (vertrekstad.Naam)
             {
@@ -26,21 +27,22 @@ namespace VivesTrein.Utilities
                         tussenstops = null;
                     } else if(aankomststad.Naam == "Moskou")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Moskou").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
                     } else
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
                     }
                     break;
 
                 case "Parijs":
                     if(aankomststad.Naam == "Moskou")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
-                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
                     }else if(aankomststad.Naam == "Londen" || aankomststad.Naam == "Amsterdam")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
                     }
                     else
                     {
@@ -51,10 +53,10 @@ namespace VivesTrein.Utilities
                 case "Rome":
                     if(aankomststad.Naam == "Moskou")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
                     }else if(aankomststad.Naam == "Londen"|| aankomststad.Naam == "Amsterdam")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
                     }
                     else
                     {
@@ -65,21 +67,21 @@ namespace VivesTrein.Utilities
                 case "Amsterdam":
                     if(aankomststad.Naam == "Moskou")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
                     }else if(aankomststad.Naam == "Brussel" || aankomststad.Naam == "Berlijn")
                     {
                         tussenstops = null;
                     }
                     else
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
                     }
                     break;
 
                 case "Berlijn":
                     if(aankomststad.Naam == "Parijs"|| aankomststad.Naam == "Londen"||aankomststad.Naam == "Amsterdam")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
                     }
                     else
                     {
@@ -93,19 +95,19 @@ namespace VivesTrein.Utilities
                         tussenstops = null;
                     } else if(aankomststad.Naam == "Parijs"|| aankomststad.Naam == "Londen")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").FirstOrDefault());
-                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Brussel").First());
                     }
                     else
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
                     }
                     break;
 
                 case "Brussel":
                     if(aankomststad.Naam == "Moskou")
                     {
-                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").FirstOrDefault());
+                        tussenstops.Add(steden.Where(x => x.Naam == "Berlijn").First());
                     }
                     else
                     {
