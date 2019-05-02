@@ -42,11 +42,12 @@ namespace VivesTrein.Controllers
                 Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
                 Stad aankomststad = stadService.FindById(reisVM.AankomstStadId);
                 DateTime date = reisVM.VertrekDatum;
-                Boolean bussiness = reisVM.BussinessClass; // moet nog gebruikt worden
+                Boolean bussiness = reisVM.BussinessClass;
+                String naam = reisVM.Naam;
 
                 //Reis maken
-                (Reis reis, ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis("test",true,vertrekstad, aankomststad, date);
-                return View("ShowReis", reis); // later mss met ajax en de partial in reis
+                (Reis reis, ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date);
+                return View("ShowReis", reizen); // later mss met ajax en de partial in reis
             }
             catch (Exception e)
             {
