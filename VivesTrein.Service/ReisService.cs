@@ -57,14 +57,19 @@ namespace VivesTrein.Service
             Reis reis = new Reis
             {
                 VertrekstadId = vertrekstad.Id,
+                Vertrekstad = vertrekstad,
                 BestemmingsstadId = aankomststad.Id,
-                Naam = "Test"
+                Bestemmingsstad = aankomststad,
+                Naam = "Test",
+                Prijs = 0
                 
             };
 
             ICollection<TreinritReis> colTreinritreis = new Collection<TreinritReis>();
             foreach(Treinrit treinrit in treinritten)
             {
+                reis.Prijs += treinrit.Prijs;
+
                 TreinritReis treinritreis = new TreinritReis
                 {
                     Treinrit = treinrit,

@@ -11,12 +11,12 @@ using VivesTrein.ViewModels;
 
 namespace VivesTrein.Controllers
 {
-    public class ReisController : Controller
+    public class TestController : Controller
     {
         private ReisService reisService;
         private StadService stadService;
 
-        public ReisController()
+        public TestController()
         {
             reisService = new ReisService();
             stadService = new StadService();
@@ -36,22 +36,16 @@ namespace VivesTrein.Controllers
                 return BadRequest();
             }
 
-            try {
-                //Data uit de VM halen
-                Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
-                Stad aankomststad = stadService.FindById(reisVM.AankomstStadId);
-                DateTime date = reisVM.VertrekDatum;
-                Boolean bussiness = reisVM.BussinessClass; // moet nog gebruikt worden
+            //Data uit de VM halen
+            Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
+            Stad aankomststad = stadService.FindById(reisVM.AankomstStadId);
+            DateTime date = reisVM.VertrekDatum;
+            Boolean bussiness = reisVM.BussinessClass; // moet nog gebruikt worden
 
-                //Reis maken
-                Reis reis = reisService.MakeReis(vertrekstad, aankomststad, date);
-                return View("ShowReis", reis); // later mss met ajax en de partial in reis
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return View(reisVM);
+            //Reis maken
+            Reis reis = reisService.MakeReis(vertrekstad, aankomststad, date);
+
+            return PartialView("_TestPartial", reis);
         }
 
         public IActionResult AddToCart(int? id)

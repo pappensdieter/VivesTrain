@@ -6,22 +6,22 @@
 
 <h2>Index</h2>
 
-@*@section styles {
+@section styles {
     <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
-}*@
+}
 
 <h4>ReisVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Index" id="form"
-              @*data-ajax="true"
+              data-ajax="true"
               data-ajax-methode="POST"
               data-ajax-mode="replace"
               data-ajax-update="#content"
               data-ajax-loading="#divloading"
               data-ajax-succes="Succes"
-              data-ajax-failure="Failure"*@>
+              data-ajax-failure="Failure">
 
             <div class="form-group">
                 <label asp-for="Naam" class="control-label"></label>
@@ -63,16 +63,18 @@
         </form>
     </div>
 
-    @*<div class="col-md-7">
+    <div class="col-md-7">
         <div id="content"></div>
-    </div>*@
+    </div>
 </div>
+
+@*<img id="divloading" src="~/images/LoadingSpinner.gif" style="display: none" />*@
 
 
 @section scripts
     {
 
-<script src="~/lib/jquery-ajax-unobtrusive-master/jquery-ajax-unobtrusive-master/dist/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/lib/jquery-ajax-unobtrusive-master/jquery-ajax-unobtrusive-master/dist/jquery.unobtrusive-ajax.min.js"></script>*@
     <script>
         $("#form").on("change", function () {
 
@@ -90,12 +92,20 @@
                     if (date != 0) {
                         console.log("submit test")
                         $("form").trigger("submit")
-                        
+
                     }
                 }
             }
         });
+
+        function Succes() {
+            //  $("#divloading").hide();
+            console.log("succes");
+        }
+
+        function Failure() {
+            //  $("#divloading").hide();
+            console.log("failure");
+        }
     </script>
 }
-
-

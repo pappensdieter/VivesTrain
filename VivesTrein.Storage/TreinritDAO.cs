@@ -28,7 +28,7 @@ namespace VivesTrein.Storage
             using (vivestrainContext db = new vivestrainContext())
             {
                 return db.Treinrit
-                          .Where(x => x.Vertrekstad == vertrekstad && x.Bestemmingsstad == aankomststad && x.Vertrek >= vertrekuur).First();
+                          .Where(x => x.Vertrekstad == vertrekstad && x.Bestemmingsstad == aankomststad && x.Vertrek >= vertrekuur).FirstOrDefault();
             }
         }
     }

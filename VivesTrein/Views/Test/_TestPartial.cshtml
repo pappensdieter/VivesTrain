@@ -1,0 +1,64 @@
+﻿@model VivesTrein.Domain.Entities.Reis
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vertrekstad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bestemmingsstad)
+            </th>
+            <th>
+                Klasse
+            </th>
+            <th>
+                Vertrek datum
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prijs)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Vertrekstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Bestemmingsstad.Naam)
+            </td>
+            <td>
+                <p id="klasse"></p> @*// werkt nog niet*@
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TreinritReis.First().Treinrit.Vertrek)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Prijs)
+            </td>
+            <td>
+                <a asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@*@section scripts {
+
+        <script>
+
+            $(() => {
+                if ()
+            });
+
+        </script>
+    }*@
+
