@@ -16,6 +16,8 @@ namespace VivesTrein.Service
         private TreinritService treinritService;
         private ReisDAO reisDAO;
         private TreinritDAO treinritDAO;
+        private TreinritReisDAO treinritReisDAO;
+        private TreinritReisService treinritReisService;
         private TreinritHelper treinritHelper;
         private IList<Treinrit> treinritten;
 
@@ -23,9 +25,11 @@ namespace VivesTrein.Service
         {
             reisDAO = new ReisDAO();
             treinritDAO = new TreinritDAO();
+            treinritReisDAO = new TreinritReisDAO();
             stadService = new StadService();
             treinritService = new TreinritService();
             treinritten = new List<Treinrit>();
+            treinritReisService = new TreinritReisService();
         }
 
         public IEnumerable<Reis> GetAll()
@@ -33,15 +37,16 @@ namespace VivesTrein.Service
             return reisDAO.GetAll();
         }
 
-        public Reis MakeReis(Stad vertrekstad, Stad aankomststad, DateTime date)
+        public (Reis, ICollection<TreinritReis>, Boolean vrijeplaats) MakeReis(String naam, Boolean klasse, Stad vertrekstad, Stad aankomststad, DateTime date)
         {
             //Tussenstoppen opvragen
             IList<Stad> steden = stadService.GetTussenstoppen(vertrekstad, aankomststad);
-
+            double? prijs = 0;
 
             if(steden.Count == 2)
             {
                 Treinrit treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
+                prijs = treinrit.Prijs;
             }
             else if(steden.Count > 2)
             {
@@ -49,6 +54,7 @@ namespace VivesTrein.Service
                 for (int i = 0; i < steden.Count - 1; i++)
                 {
                     Treinrit treinrit = treinritService.GetClosestTreinrit(steden[i], steden[i + 1], depDate);
+                    prijs += treinrit.Prijs;
                     treinritten.Add(treinrit);
                     depDate = treinrit.Aankomst.Value;
                 }
@@ -60,29 +66,45 @@ namespace VivesTrein.Service
                 Vertrekstad = vertrekstad,
                 BestemmingsstadId = aankomststad.Id,
                 Bestemmingsstad = aankomststad,
-                Naam = "Test",
-                Prijs = 0
-                
+                Naam = naam,
+                Prijs = prijs
             };
+
+            Boolean vrijeplaats = true;
 
             ICollection<TreinritReis> colTreinritreis = new Collection<TreinritReis>();
             foreach(Treinrit treinrit in treinritten)
             {
-                reis.Prijs += treinrit.Prijs;
-
                 TreinritReis treinritreis = new TreinritReis
                 {
                     Treinrit = treinrit,
-                    Plaats = 100,
-                    Klasse = false,
+                    Klasse = klasse,
                     Reis = reis
                 };
+
+                TreinritReis foundTreinritReis = treinritReisService.FindTreinritReis(treinrit);
+                if (foundTreinritReis != null)
+                {   
+                    if(foundTreinritReis.Plaats < treinrit.AtlZitplaatsen)
+                    {
+                        treinritreis.Plaats = foundTreinritReis.Plaats + 1;
+                    }
+                    else
+                    {
+                        vrijeplaats = false;
+                    }
+                }
+                else
+                {
+                    treinritreis.Plaats = 1;
+                }
+
                 colTreinritreis.Add(treinritreis);
             }
 
             reis.TreinritReis = colTreinritreis;
 
-            return reis;
+            return (reis, colTreinritreis, vrijeplaats);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace VivesTrein.Controllers
                 Boolean bussiness = reisVM.BussinessClass; // moet nog gebruikt worden
 
                 //Reis maken
-                Reis reis = reisService.MakeReis(vertrekstad, aankomststad, date);
+                (Reis reis, ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis("test",true,vertrekstad, aankomststad, date);
                 return View("ShowReis", reis); // later mss met ajax en de partial in reis
             }
             catch (Exception e)
