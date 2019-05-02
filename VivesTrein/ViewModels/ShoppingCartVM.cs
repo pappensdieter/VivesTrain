@@ -12,11 +12,12 @@ namespace VivesTrein.ViewModels
 
     public class CartVM
     {
+        public int ReisId { get; set; }
         public string Naam { get; set; }
-        public int VertrekStadId { get; set; }
-        public int AankomstStadId { get; set; }
+        public string VertrekStad { get; set; }
+        public string AankomstStad { get; set; }
+        public int Aantal { get; set; }
         public float Prijs { get; set; }
-        public System.DateTime VertrekDatum { get; set; }
         public System.DateTime DateCreated { get; set; }
     }
 }

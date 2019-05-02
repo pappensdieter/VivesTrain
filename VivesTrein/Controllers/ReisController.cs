@@ -8,6 +8,7 @@ using VivesTrein.Domain.Entities;
 using VivesTrein.Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VivesTrein.ViewModels;
+using VivesTrein.Extentions;
 
 namespace VivesTrein.Controllers
 {
@@ -54,9 +55,40 @@ namespace VivesTrein.Controllers
             return View(reisVM);
         }
 
-        public IActionResult AddToCart(int? id)
+        public IActionResult AddToCart(Reis reis)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+
+            CartVM item = new CartVM
+            {
+                Naam = reis.Naam,
+                VertrekStad = reis.Vertrekstad.Naam,
+                AankomstStad = reis.Bestemmingsstad.Naam,
+                Aantal = 1,
+                Prijs = (float) reis.Prijs,
+                DateCreated = DateTime.Now,
+            };
+
+            ShoppingCartVM shopping;
+
+            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            {
+                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            }
+            else
+            {
+                shopping = new ShoppingCartVM();
+                shopping.Cart = new List<CartVM>();
+            }
+
+            shopping.Cart.Add(item);
+            HttpContext.Session.SetObject("ShoppingCart", shopping);
+
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }
