@@ -21,7 +21,7 @@ namespace VivesTrein.Service
             route = new List<Stad>();
         }
 
-        public Stad FindById(int id)
+        public Stad FindById(int? id)
         {
             return stadDAO.FindById(id);
         }

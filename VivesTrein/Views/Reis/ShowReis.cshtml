@@ -29,34 +29,49 @@
             <th>
                 @Html.DisplayNameFor(model => model.First().Treinrit.Prijs)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Klasse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Plaats)
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Treinrit.Vertrekstad.Naam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Treinrit.Bestemmingsstad.Naam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Treinrit.Vertrek)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Treinrit.Aankomst)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Treinrit.Prijs)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Vertrekstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Bestemmingsstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Vertrek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Aankomst)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Prijs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klasse);
+                @if (Model.First().Klasse)
+                {<text>Yes</text>}
+                    else
+                    {<text>No</text>}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaats);
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
 <div>
     @*<a asp-action="AddToCart" asp-route-id="@Model.FirstOrDefault().Reis">Add to cart</a> |*@
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Annuleren</a>
 </div>

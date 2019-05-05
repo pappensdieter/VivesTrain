@@ -17,7 +17,7 @@ namespace VivesTrein.Storage
             _db = new vivestrainContext();
         }
 
-        public Stad FindById(int id)
+        public Stad FindById(int? id)
         {
             return _db.Stad
             .Where(x => x.Id == id).First();

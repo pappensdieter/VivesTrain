@@ -75,12 +75,16 @@ namespace VivesTrein.Service
             ICollection<TreinritReis> colTreinritreis = new Collection<TreinritReis>();
             foreach(Treinrit treinrit in treinritten)
             {
+                treinrit.Vertrekstad = stadService.FindById(treinrit.VertrekstadId);
+                treinrit.Bestemmingsstad = stadService.FindById(treinrit.BestemmingsstadId);
+
                 TreinritReis treinritreis = new TreinritReis
                 {
                     Treinrit = treinrit,
                     Klasse = klasse,
                     Reis = reis
                 };
+
 
                 TreinritReis foundTreinritReis = treinritReisService.FindTreinritReis(treinrit);
                 if (foundTreinritReis != null)
