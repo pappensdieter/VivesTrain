@@ -11,12 +11,12 @@ namespace VivesTrein.Domain.Entities
         }
 
         public int Id { get; set; }
-        public int? VertrekstadId { get; set; }
-        public int? BestemmingsstadId { get; set; }
-        public int? AtlZitplaatsen { get; set; }
-        public double? Prijs { get; set; }
-        public DateTime? Vertrek { get; set; }
-        public DateTime? Aankomst { get; set; }
+        public int VertrekstadId { get; set; }
+        public int BestemmingsstadId { get; set; }
+        public int AtlZitplaatsen { get; set; }
+        public double Prijs { get; set; }
+        public DateTime Vertrek { get; set; }
+        public DateTime Aankomst { get; set; }
 
         public Stad Bestemmingsstad { get; set; }
         public Stad Vertrekstad { get; set; }

@@ -41,7 +41,7 @@ namespace VivesTrein.Service
         {
             //Tussenstoppen opvragen
             IList<Stad> steden = stadService.GetTussenstoppen(vertrekstad, aankomststad);
-            double? prijs = 0;
+            double prijs = 0;
 
             if(steden.Count == 2)
             {
@@ -56,7 +56,7 @@ namespace VivesTrein.Service
                     Treinrit treinrit = treinritService.GetClosestTreinrit(steden[i], steden[i + 1], depDate);
                     prijs += treinrit.Prijs;
                     treinritten.Add(treinrit);
-                    depDate = treinrit.Aankomst.Value;
+                    depDate = treinrit.Aankomst;
                 }
             }
 

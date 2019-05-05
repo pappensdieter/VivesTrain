@@ -57,14 +57,13 @@
                 @Html.DisplayFor(modelItem => item.Treinrit.Prijs)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Klasse);
                 @if (Model.First().Klasse)
-                {<text>Yes</text>}
-                    else
-                    {<text>No</text>}
+                {<text>Business</text>}
+                else
+                {<text>Economy</text>}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Plaats);
+                @Html.DisplayFor(modelItem => item.Plaats)
             </td>
         </tr>
         }

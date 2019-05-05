@@ -148,22 +148,26 @@ namespace VivesTrein.Domain.Entities
                 entity.Property(e => e.ReisId).HasColumnName("reis_id");
 
                 entity.Property(e => e.Status)
+                    .IsRequired()
                     .HasColumnName("status")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId)
+                    .IsRequired()
                     .HasColumnName("user_id")
                     .HasMaxLength(450);
 
                 entity.HasOne(d => d.Reis)
                     .WithMany(p => p.Boeking)
                     .HasForeignKey(d => d.ReisId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Boeking_Reis");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Boeking)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Boeking_AspNetUsers");
             });
 
@@ -176,6 +180,7 @@ namespace VivesTrein.Domain.Entities
                 entity.Property(e => e.BestemmingsstadId).HasColumnName("bestemmingsstad_id");
 
                 entity.Property(e => e.Naam)
+                    .IsRequired()
                     .HasColumnName("naam")
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -187,11 +192,13 @@ namespace VivesTrein.Domain.Entities
                 entity.HasOne(d => d.Bestemmingsstad)
                     .WithMany(p => p.ReisBestemmingsstad)
                     .HasForeignKey(d => d.BestemmingsstadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Reis__bestemming__412EB0B6");
 
                 entity.HasOne(d => d.Vertrekstad)
                     .WithMany(p => p.ReisVertrekstad)
                     .HasForeignKey(d => d.VertrekstadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Reis__vertreksta__4222D4EF");
             });
 
@@ -200,6 +207,7 @@ namespace VivesTrein.Domain.Entities
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Naam)
+                    .IsRequired()
                     .HasColumnName("naam")
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -228,11 +236,13 @@ namespace VivesTrein.Domain.Entities
                 entity.HasOne(d => d.Bestemmingsstad)
                     .WithMany(p => p.TreinritBestemmingsstad)
                     .HasForeignKey(d => d.BestemmingsstadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Treinrit__bestem__403A8C7D");
 
                 entity.HasOne(d => d.Vertrekstad)
                     .WithMany(p => p.TreinritVertrekstad)
                     .HasForeignKey(d => d.VertrekstadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Treinrit__vertre__3F466844");
             });
 
@@ -253,11 +263,13 @@ namespace VivesTrein.Domain.Entities
                 entity.HasOne(d => d.Reis)
                     .WithMany(p => p.TreinritReis)
                     .HasForeignKey(d => d.ReisId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Treinrit_Reis_Reis");
 
                 entity.HasOne(d => d.Treinrit)
                     .WithMany(p => p.TreinritReis)
                     .HasForeignKey(d => d.TreinritId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Treinrit___trein__4316F928");
             });
         }
