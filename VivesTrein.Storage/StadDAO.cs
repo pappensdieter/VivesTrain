@@ -20,7 +20,7 @@ namespace VivesTrein.Storage
         public Stad FindById(int? id)
         {
             return _db.Stad
-            .Where(x => x.Id == id).First();
+            .Where(x => x.Id == id).FirstOrDefault();
 
         }
 

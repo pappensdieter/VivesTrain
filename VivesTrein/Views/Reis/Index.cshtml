@@ -21,11 +21,11 @@
               data-ajax-update="#content"
               data-ajax-loading="#divloading"
               data-ajax-succes="Succes"
-              data-ajax-failure="Failure"*@>
+              data-ajax-failure="Failure" *@>
 
             <div class="form-group">
                 <label asp-for="Naam" class="control-label"></label>
-                <input asp-for="Naam" class="form-control" />
+                <input asp-for="Naam" id="Naam" class="form-control" />
                 <span asp-validation-for="Naam" class="text-danger"></span>
             </div>
 
@@ -58,12 +58,17 @@
                 <span asp-validation-for="VertrekDatum" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Aantal" class="control-label">Aantal</label>
+                <input asp-for="Aantal" id="Aantal" type="number" min="1" max="10" />
+                <span asp-validation-for="Aantal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Search" id="btn" class="btn btn-default" style="display: none" />
             </div>
         </form>
     </div>
 
-    @*<div class="col-md-7">
+    @*<div class="col-md-4">
         <div id="content"></div>
     </div>*@
 </div>
@@ -79,6 +84,9 @@
         $("#form").on("change", function () {
             $("#btn").hide()
 
+            var naam = $("#Naam").val();
+            console.log(naam);
+
             var vertrek = $("#VerstrekStadId").val();
             console.log(vertrek);
 
@@ -88,11 +96,17 @@
             var date = $("#VertrekDatum").val();
             console.log(date);
 
-            if (vertrek != 0) {
-                if (bestemming != 0) {
-                    if (date != 0) {
-                        $("#btn").show()
-                        
+            var aantal = $("#Aantal").val();
+            console.log(aantal);
+
+            if (naam != 0) {
+                if (vertrek != 0) {
+                    if (bestemming != 0) {
+                        if (date != 0) {
+                            if (aantal != 0) {
+                                $("#btn").show()
+                            }
+                        }
                     }
                 }
             }

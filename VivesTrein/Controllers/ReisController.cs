@@ -37,40 +37,44 @@ namespace VivesTrein.Controllers
                 return BadRequest();
             }
 
-            try {
+            
                 //Data uit de VM halen
                 Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
                 Stad aankomststad = stadService.FindById(reisVM.AankomstStadId);
                 DateTime date = reisVM.VertrekDatum;
                 Boolean bussiness = reisVM.BussinessClass;
                 String naam = reisVM.Naam;
+                int aantal = reisVM.Aantal;
 
                 //Reis maken
-                (Reis reis, ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date);
-                return View("ShowReis", reizen); // later mss met ajax en de partial in reis
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+                (ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
+
+                if (vrijeplaats)
+                {
+                    return View("ShowReis", reizen); // later mss met ajax en de partial in reis
+                }
+                
+            
             return View(reisVM);
         }
 
-        public IActionResult AddToCart(Reis reis)
+        public IActionResult AddToCart(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
+            Reis reis = reisService.Get(Convert.ToInt16(id));
 
             CartVM item = new CartVM
             {
+                ReisId = reis.Id,
                 Naam = reis.Naam,
-                VertrekStad = reis.Vertrekstad.Naam,
-                AankomstStad = reis.Bestemmingsstad.Naam,
+                VertrekStad = stadService.FindById(reis.VertrekstadId).Naam,
+                AankomstStad = stadService.FindById(reis.BestemmingsstadId).Naam,
                 Aantal = 1,
-                Prijs = (float) reis.Prijs,
+                Prijs = (float)reis.Prijs,
                 DateCreated = DateTime.Now,
             };
 

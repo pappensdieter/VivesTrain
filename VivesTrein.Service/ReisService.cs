@@ -7,6 +7,7 @@ using VivesTrein.Storage;
 using VivesTrein.Utilities;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace VivesTrein.Service
 {
@@ -37,7 +38,7 @@ namespace VivesTrein.Service
             return reisDAO.GetAll();
         }
 
-        public (Reis, ICollection<TreinritReis>, Boolean vrijeplaats) MakeReis(String naam, Boolean klasse, Stad vertrekstad, Stad aankomststad, DateTime date)
+        public (ICollection<TreinritReis>, Boolean vrijeplaats) MakeReis(String naam, Boolean klasse, Stad vertrekstad, Stad aankomststad, DateTime date, int aantalZitp)
         {
             //Tussenstoppen opvragen
             IList<Stad> steden = stadService.GetTussenstoppen(vertrekstad, aankomststad);
@@ -46,6 +47,7 @@ namespace VivesTrein.Service
             if(steden.Count == 2)
             {
                 Treinrit treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
+                treinritten.Add(treinrit);
                 prijs = treinrit.Prijs;
             }
             else if(steden.Count > 2)
@@ -60,12 +62,11 @@ namespace VivesTrein.Service
                 }
             }
 
+
             Reis reis = new Reis
             {
                 VertrekstadId = vertrekstad.Id,
-                Vertrekstad = vertrekstad,
                 BestemmingsstadId = aankomststad.Id,
-                Bestemmingsstad = aankomststad,
                 Naam = naam,
                 Prijs = prijs
             };
@@ -82,7 +83,8 @@ namespace VivesTrein.Service
                 {
                     Treinrit = treinrit,
                     Klasse = klasse,
-                    Reis = reis
+                    Reis = reis,
+                    ReisId = reis.Id,
                 };
 
 
@@ -102,13 +104,33 @@ namespace VivesTrein.Service
                 {
                     treinritreis.Plaats = 1;
                 }
-
                 colTreinritreis.Add(treinritreis);
             }
 
             reis.TreinritReis = colTreinritreis;
+            Create(reis);
 
-            return (reis, colTreinritreis, vrijeplaats);
+            return (colTreinritreis, vrijeplaats);
+        }
+
+        public Reis Get(int id)
+        {
+            return reisDAO.Get(id);
+        }
+
+        public void Update(Reis entity)
+        {
+            reisDAO.Update(entity);
+        }
+
+        public void Create(Reis entity)
+        {
+            reisDAO.Create(entity);
+        }
+
+        public void Delete(Reis entity)
+        {
+            reisDAO.Delete(entity);
         }
     }
 }

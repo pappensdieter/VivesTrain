@@ -34,6 +34,16 @@ namespace VivesTrein
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = ".VivesTrein.Session";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -62,6 +72,9 @@ namespace VivesTrein
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            // add session
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

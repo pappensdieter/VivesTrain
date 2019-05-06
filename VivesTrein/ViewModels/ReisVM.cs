@@ -12,6 +12,7 @@ namespace VivesTrein.ViewModels
         public int AankomstStadId { get; set; }
         public Boolean BussinessClass { get; set; }
         public System.DateTime VertrekDatum { get; set; }
+        public int Aantal { get; set; }
 
     }
 }

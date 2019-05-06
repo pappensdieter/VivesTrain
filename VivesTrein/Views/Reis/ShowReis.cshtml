@@ -11,66 +11,74 @@
     <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 }
 
-<table class="table" id="myTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Treinrit.Vertrekstad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Treinrit.Bestemmingsstad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Treinrit.Vertrek)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Treinrit.Aankomst)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Treinrit.Prijs)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Klasse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Plaats)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treinrit.Vertrekstad.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treinrit.Bestemmingsstad.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treinrit.Vertrek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treinrit.Aankomst)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treinrit.Prijs)
-            </td>
-            <td>
-                @if (Model.First().Klasse)
-                {<text>Business</text>}
-                else
-                {<text>Economy</text>}
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plaats)
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+@if (Model != null)
+{
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Treinrit.Vertrekstad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Treinrit.Bestemmingsstad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Treinrit.Vertrek)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Treinrit.Aankomst)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Treinrit.Prijs)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Klasse)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Plaats)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Treinrit.Vertrekstad.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Treinrit.Bestemmingsstad.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Treinrit.Vertrek)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Treinrit.Aankomst)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Treinrit.Prijs)
+                    </td>
+                    <td>
+                        @if (Model.First().Klasse)
+                        {<text>Business</text>}
+                    else
+                    {<text>Economy</text>}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Plaats)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<div>
-    @*<a asp-action="AddToCart" asp-route-id="@Model.FirstOrDefault().Reis">Add to cart</a> |*@
-    <a asp-action="Index">Annuleren</a>
-</div>
+    <div>
+        <a asp-action="AddToCart" asp-route-id="@Model.FirstOrDefault().ReisId">Add to cart</a> |
+        <a asp-action="Index">Annuleren</a>
+    </div>
+}
+else
+{
+    @Html.Raw("Er is geen trein beschikbaar")
+}
+
