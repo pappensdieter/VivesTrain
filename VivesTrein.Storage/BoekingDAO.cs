@@ -20,27 +20,32 @@ namespace VivesTrein.Storage
 
         public void Create(Boeking entity)
         {
-            throw new NotImplementedException();
+            _db.Entry(entity).State = EntityState.Added;
+            _db.SaveChanges();
         }
 
         public void Delete(Boeking entity)
         {
-            throw new NotImplementedException();
+            _db.Remove(entity).State = EntityState.Deleted;
+            _db.SaveChanges();
         }
 
         public Boeking FindById(int? Id)
         {
-            throw new NotImplementedException();
+            return _db.Boeking
+                .Where(r => r.Id == Id)
+                .First();
         }
 
         public IEnumerable<Boeking> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Boeking.ToList();
         }
 
         public void Update(Boeking entity)
         {
-            throw new NotImplementedException();
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.SaveChanges();
         }
     }
 }

@@ -127,9 +127,9 @@ namespace VivesTrein.Service
             return reis;
         }
 
-        public Reis FindById(int? id)
+        public Reis FindById(int? Id)
         {
-            return reisDAO.FindById(id);
+            return reisDAO.FindById(Id);
         }
 
         public void Update(Reis entity)
