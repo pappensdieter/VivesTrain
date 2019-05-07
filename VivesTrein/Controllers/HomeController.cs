@@ -43,7 +43,7 @@ namespace VivesTrein.Controllers
 
                     body = string.Format(body, model.Naam, model.Email, model.Message);
                     EmailSender mail = new EmailSender();
-                    await mail.SendEmailAsync(model.Email, "contact", body);
+                    await mail.SendEmailAsync(model.Email, "Contact VivesTrein", body);
                     return RedirectToAction("Sent");
                 }
                 catch (Exception e)
