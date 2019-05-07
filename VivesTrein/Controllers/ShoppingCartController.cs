@@ -8,12 +8,15 @@ using VivesTrein.ViewModels;
 using VivesTrein.Service;
 using VivesTrein.Domain;
 using VivesTrein.Domain.Entities;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VivesTrein.Controllers
 {
     public class ShoppingCartController : Controller
     {
         private ReisService reisService;
+        private BoekingService boekingService;
 
         public IActionResult Index()
         {
@@ -49,7 +52,41 @@ namespace VivesTrein.Controllers
             {
                 return RedirectToAction("Index", "Reis");
             }
-            
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Payment(ShoppingCartVM model)
+        {
+            List<CartVM> carts = model.Cart;
+
+            // opvragen UserId
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            reisService = new ReisService();
+            boekingService = new BoekingService();
+
+            try
+            {
+                Boeking boeking; // in domain
+                foreach (CartVM cart in carts)
+                { // create order object
+                    boeking = new Boeking();
+                    boeking.UserId = userID;
+                    boeking.ReisId = cart.ReisId;
+                    boeking.Status = "Betaalt";
+                    //boeking.Created = DateTime.UtcNow;
+                    boeking.Reis = reisService.FindById(cart.ReisId);
+                    //boeking.User = ?;
+
+                    boekingService.Create(boeking);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
+
+            return View();
         }
     }
 }

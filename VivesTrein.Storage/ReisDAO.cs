@@ -30,10 +30,10 @@ namespace VivesTrein.Storage
             _db.SaveChanges();
         }
 
-        public Reis FindById(int? id)
+        public Reis FindById(int? Id)
         {
             return _db.Reis
-                .Where(r => r.Id == id)
+                .Where(r => r.Id == Id)
                 .First();
         }
 

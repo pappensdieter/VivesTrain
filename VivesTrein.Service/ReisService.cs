@@ -69,7 +69,8 @@ namespace VivesTrein.Service
                 Vertrekstad = vertrekstad,
                 Bestemmingsstad = aankomststad,
                 Naam = naam,
-                Prijs = prijs
+                Prijs = prijs,
+                Aantal = aantalZitp
             };
 
             Boolean vrijeplaats = true;
@@ -131,9 +132,9 @@ namespace VivesTrein.Service
             return (reis, colTreinritreis, vrijeplaats);
         }
 
-        public Reis FindById(int? id)
+        public Reis FindById(int? Id)
         {
-            return reisDAO.FindById(id);
+            return reisDAO.FindById(Id);
         }
 
         public void Update(Reis entity)

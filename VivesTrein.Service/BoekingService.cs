@@ -19,27 +19,27 @@ namespace VivesTrein.Service
 
         public void Create(Boeking entity)
         {
-            throw new NotImplementedException();
+            boekingDAO.Create(entity);
         }
 
         public void Delete(Boeking entity)
         {
-            throw new NotImplementedException();
+            boekingDAO.Delete(entity);
         }
 
         public Boeking FindById(int? Id)
         {
-            throw new NotImplementedException();
+            return boekingDAO.FindById(Id);
         }
 
         public IEnumerable<Boeking> GetAll()
         {
-            throw new NotImplementedException();
+            return boekingDAO.GetAll();
         }
 
         public void Update(Boeking entity)
         {
-            throw new NotImplementedException();
+            boekingDAO.Update(entity);
         }
     }
 }
