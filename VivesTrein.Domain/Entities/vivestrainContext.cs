@@ -233,6 +233,8 @@ namespace VivesTrein.Domain.Entities
 
                 entity.Property(e => e.VertrekstadId).HasColumnName("vertrekstad_id");
 
+                entity.Property(e => e.Vrijeplaatsen).HasColumnName("vrijeplaatsen");
+
                 entity.HasOne(d => d.Bestemmingsstad)
                     .WithMany(p => p.TreinritBestemmingsstad)
                     .HasForeignKey(d => d.BestemmingsstadId)
