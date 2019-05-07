@@ -49,11 +49,14 @@ namespace VivesTrein.Controllers
                 //Reis maken
                 (ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
 
-                if (vrijeplaats)
-                {
-                    return View("ShowReis", reizen); // later mss met ajax en de partial in reis
-                }
-                
+            if (vrijeplaats)
+            {
+                return View("ShowReis", reizen); // later mss met ajax en de partial in reis
+            }
+            else
+            {
+                //Tonen aan gebruiker dat er niet genoeg plaats is op treinritten om de reis te maken
+            }
             
             return View(reisVM);
         }

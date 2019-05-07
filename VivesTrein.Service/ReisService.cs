@@ -79,6 +79,7 @@ namespace VivesTrein.Service
                 treinrit.Vertrekstad = stadService.FindById(treinrit.VertrekstadId);
                 treinrit.Bestemmingsstad = stadService.FindById(treinrit.BestemmingsstadId);
 
+                //Treinritreis aanmaken
                 TreinritReis treinritreis = new TreinritReis
                 {
                     Treinrit = treinrit,
@@ -87,13 +88,13 @@ namespace VivesTrein.Service
                     ReisId = reis.Id,
                 };
 
-
+                //Zoek de laatst aangemaakte treinritreis van treinrit om de plaats te vinden
                 TreinritReis foundTreinritReis = treinritReisService.FindTreinritReis(treinrit);
                 if (foundTreinritReis != null)
                 {   
-                    if(foundTreinritReis.Plaats < treinrit.AtlZitplaatsen)
+                    if(foundTreinritReis.Plaats + aantalZitp <= treinrit.AtlZitplaatsen)
                     {
-                        treinritreis.Plaats = foundTreinritReis.Plaats + 1;
+                        treinritreis.Plaats = foundTreinritReis.Plaats + aantalZitp;
                     }
                     else
                     {
@@ -102,12 +103,13 @@ namespace VivesTrein.Service
                 }
                 else
                 {
-                    treinritreis.Plaats = 1;
+                    treinritreis.Plaats = aantalZitp;
                 }
                 colTreinritreis.Add(treinritreis);
             }
 
             reis.TreinritReis = colTreinritreis;
+
             Create(reis);
 
             return (colTreinritreis, vrijeplaats);
