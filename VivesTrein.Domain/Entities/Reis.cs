@@ -16,6 +16,7 @@ namespace VivesTrein.Domain.Entities
         public int VertrekstadId { get; set; }
         public int BestemmingsstadId { get; set; }
         public double Prijs { get; set; }
+        public int Aantal { get; set; }
 
         public Stad Bestemmingsstad { get; set; }
         public Stad Vertrekstad { get; set; }

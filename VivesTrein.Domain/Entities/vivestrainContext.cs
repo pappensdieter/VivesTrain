@@ -175,6 +175,8 @@ namespace VivesTrein.Domain.Entities
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Aantal).HasColumnName("aantal");
+
                 entity.Property(e => e.BestemmingsstadId).HasColumnName("bestemmingsstad_id");
 
                 entity.Property(e => e.Naam)
