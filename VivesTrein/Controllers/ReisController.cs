@@ -47,11 +47,11 @@ namespace VivesTrein.Controllers
                 int aantal = reisVM.Aantal;
 
                 //Reis maken
-                (ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
+                (Reis reis, ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
 
             if (vrijeplaats)
             {
-                return View("ShowReis", reizen); // later mss met ajax en de partial in reis
+                return View("ShowReis2", reis); // later mss met ajax en de partial in reis
             }
             else
             {

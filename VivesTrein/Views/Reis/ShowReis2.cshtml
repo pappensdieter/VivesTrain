@@ -1,0 +1,97 @@
+﻿@model VivesTrein.Domain.Entities.Reis
+
+@{
+    ViewData["Title"] = "ShowReis2";
+}
+
+<h2>ShowReis2</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vertrekstad.Naam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bestemmingsstad.Naam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prijs)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Vertrekstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Bestemmingsstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Prijs)
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Klasse
+            </th>
+            <th>
+                Plaats
+            </th>
+            <th>
+                Vertrekstad
+            </th>
+            <th>
+                Vertrekuur
+            </th>
+            <th>
+                Aankomststad
+            </th>
+            <th>
+                Aankomstuur
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TreinritReis)
+        {
+        <tr>
+            <td>
+                @if (item.Klasse)
+                {<text>Business</text>}
+                else
+                {<text>Economy</text>}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Vertrekstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Vertrek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Bestemmingsstad.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treinrit.Aankomst)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

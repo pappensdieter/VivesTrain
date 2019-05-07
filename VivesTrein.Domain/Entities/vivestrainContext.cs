@@ -173,9 +173,7 @@ namespace VivesTrein.Domain.Entities
 
             modelBuilder.Entity<Reis>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.BestemmingsstadId).HasColumnName("bestemmingsstad_id");
 
