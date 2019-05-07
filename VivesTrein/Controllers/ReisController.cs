@@ -46,16 +46,9 @@ namespace VivesTrein.Controllers
                 int aantal = reisVM.Aantal;
 
                 //Reis maken
-                (Reis reis, ICollection<TreinritReis> reizen, Boolean vrijeplaats) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
+                Reis reis = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
 
-            if (vrijeplaats)
-            {
                 return View("ShowReis", reis); // later mss met ajax en de partial in reis
-            }
-            else
-            {
-                return View("ShowReis", null); //Tonen aan gebruiker dat er niet genoeg plaats is op treinritten om de reis te maken
-            }
         }
 
         public IActionResult AddToCart(int? id)

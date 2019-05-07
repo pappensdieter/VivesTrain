@@ -28,7 +28,7 @@ namespace VivesTrein.Utilities
                                 var depDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 07, 00, 00);
 
 
-                                for (int j = 0; j < 7; j++)
+                                for (int j = 0; j < 3; j++)
                                 {
                                     (Double reisduur, Boolean day) = FindReisduur(vertrekstad, bestemmingsstad);
                                     DateTime arrDate = new DateTime();
@@ -51,7 +51,8 @@ namespace VivesTrein.Utilities
                                         Prijs = prijs,
                                         AtlZitplaatsen = 100,
                                         Vertrek = depDate,
-                                        Aankomst = arrDate
+                                        Aankomst = arrDate,
+                                        Vrijeplaatsen = 100
                                     };
 
                                     await db.AddAsync(rit);
