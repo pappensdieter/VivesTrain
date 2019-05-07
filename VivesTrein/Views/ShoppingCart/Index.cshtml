@@ -64,7 +64,7 @@
 
                     </td>
                     <td>
-                        <input id="@("txtSubTotal") + @i" value="@subtotal" type="number" readonly="readonly" />
+                        <input id="@("txtSubTotal" + @i)" value="@subtotal" type="number" readonly="readonly" />
                     </td>
                     <td>
                         <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-reisId="@Model.Cart[i].ReisId">
@@ -73,33 +73,32 @@
                     </td>
                 </tr>
             }
-
-            <tr>
-                <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
-            </tr>
-            <tr>
-                <td>
-                    Total
-                </td>
-                <td></td>
-                <td></td>
-                <td id="cart-total">
-                    <input id="txtTotal" value="@total" type="number" readonly="readonly" />
-
-                </td>
-
-            </tr>
-
+                <tr>
+                    <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Total:
+                    </th>
+                    <td id="cart-total">
+                        <input id="txtTotal" value="@total" type="number" readonly="readonly" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
         </table>
     </form>
 }
 else
 {
-    @Html.Raw("Uw shoppingcart is leeg")
+    @Html.Raw("Uw shoppingcart is leeg") <br />
 }
+
 
 <a asp-controller="Reis"
    asp-action="Index">
-    Continue
+    Verder winkelen
 </a>
 

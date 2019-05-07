@@ -75,7 +75,7 @@ namespace VivesTrein.Controllers
                 VertrekStad = stadService.FindById(reis.VertrekstadId).Naam,
                 AankomstStad = stadService.FindById(reis.BestemmingsstadId).Naam,
                 Aantal = 1,
-                Prijs = (float)reis.Prijs,
+                Prijs = (float) reis.Prijs,
                 DateCreated = DateTime.Now,
             };
 
