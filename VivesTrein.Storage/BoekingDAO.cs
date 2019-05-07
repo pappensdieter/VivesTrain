@@ -47,5 +47,13 @@ namespace VivesTrein.Storage
             _db.Entry(entity).State = EntityState.Modified;
             _db.SaveChanges();
         }
+
+        public IEnumerable<Boeking> GetXForUser (string userID, int x)
+        {
+            return _db.Boeking
+                .Where(r => r.UserId == userID)
+                .Take(x)
+                .ToList();
+        }
     }
 }

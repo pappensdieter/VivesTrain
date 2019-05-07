@@ -62,7 +62,7 @@ namespace VivesTrein.Controllers
         {
             if (id == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             Reis reis = reisService.FindById(Convert.ToInt16(id));

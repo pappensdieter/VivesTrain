@@ -58,6 +58,11 @@ namespace VivesTrein.Controllers
         [HttpPost]
         public IActionResult Payment(ShoppingCartVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
             List<CartVM> carts = model.Cart;
 
             // opvragen UserId
@@ -76,7 +81,6 @@ namespace VivesTrein.Controllers
                     boeking.Status = "Betaalt";
                     //boeking.Created = DateTime.UtcNow;
                     boeking.Reis = reisService.FindById(cart.ReisId);
-                    //boeking.User = ?;
 
                     boekingService.Create(boeking);
                 }

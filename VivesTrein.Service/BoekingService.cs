@@ -41,5 +41,10 @@ namespace VivesTrein.Service
         {
             boekingDAO.Update(entity);
         }
+
+        public IEnumerable<Boeking> GetXForUser(string userID, int x)
+        {
+            return boekingDAO.GetXForUser(userID, x);
+        }
     }
 }
