@@ -8,10 +8,11 @@ using VivesTrein.Utilities;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Linq;
+using VivesTrein.Service.Interfaces;
 
 namespace VivesTrein.Service
 {
-    public class ReisService
+    public class ReisService : IService<Reis>
     {
         private StadService stadService;
         private TreinritService treinritService;
@@ -125,14 +126,14 @@ namespace VivesTrein.Service
 
             reis.Prijs = reis.Prijs * aantalZitp;
 
-            //Create(reis);
+            Create(reis);
 
             return (reis, colTreinritreis, vrijeplaats);
         }
 
-        public Reis Get(int id)
+        public Reis FindById(int? id)
         {
-            return reisDAO.Get(id);
+            return reisDAO.FindById(id);
         }
 
         public void Update(Reis entity)

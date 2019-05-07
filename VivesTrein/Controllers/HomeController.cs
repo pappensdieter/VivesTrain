@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VivesTrein.Models;
+using VivesTrein.Services;
 using VivesTrein.Utilities;
+using VivesTrein.ViewModels;
 
 namespace VivesTrein.Controllers
 {
@@ -26,8 +28,34 @@ namespace VivesTrein.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(ContactVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var body = "<p>Email From: " + "{0} ({1})</p><p>Message:" + "</p><p>{2}</p>";
+
+                    body = string.Format(body, model.Naam, model.Email, model.Message);
+                    EmailSender mail = new EmailSender();
+                    await mail.SendEmailAsync(model.Email, "contact", body);
+                    return RedirectToAction("Sent");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult Sent()
+        {
             return View();
         }
 

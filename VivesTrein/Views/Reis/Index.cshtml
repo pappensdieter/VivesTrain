@@ -4,25 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Reis</h2>
 
-@*@section styles {
-    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
-}*@
 
-<h4>ReisVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Index" id="form"
-              @*data-ajax="true"
-              data-ajax-methode="POST"
-              data-ajax-mode="replace"
-              data-ajax-update="#content"
-              data-ajax-loading="#divloading"
-              data-ajax-succes="Succes"
-              data-ajax-failure="Failure" *@>
-
+        <form asp-action="Index" id="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Naam" class="control-label"></label>
                 <input asp-for="Naam" id="Naam" class="form-control" />
@@ -67,20 +56,12 @@
             </div>
         </form>
     </div>
-
-    @*<div class="col-md-4">
-        <div id="content"></div>
-    </div>*@
 </div>
 
 
 @section scripts
     {
-
-<script src="~/lib/jquery-ajax-unobtrusive-master/jquery-ajax-unobtrusive-master/dist/jquery.unobtrusive-ajax.min.js"></script>
     <script>
-
-
         $("#form").on("change", function () {
             $("#btn").hide()
 
@@ -113,5 +94,7 @@
         });
     </script>
 }
+
+
 
 

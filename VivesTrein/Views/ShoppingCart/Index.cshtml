@@ -4,13 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h4>ShoppingCartVM</h4>
-
-<h3>
-    <em>Review</em> your cart:
-</h3>
-
-
+<h2>Uw winkelmandje:</h2>
 
 @if (Model != null)
 {
@@ -46,38 +40,38 @@
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
 
-            <tr>
-                @Html.HiddenFor(m => Model.Cart[i].ReisId)
-                <td>
-                    <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].VertrekStad" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].AankomstStad" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="10" data-aantal="@i" readonly="readonly" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
+                <tr>
+                    @Html.HiddenFor(m => Model.Cart[i].ReisId)
+                    <td>
+                        <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].VertrekStad" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].AankomstStad" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="10" data-aantal="@i" readonly="readonly" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
 
-                    @{
-                        var subtotal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
-                        total += subtotal;
-                    }
+                        @{
+                            var subtotal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
+                            total += subtotal;
+                        }
 
-                </td>
-                <td>
-                    <input id="@("txtSubTotal") + @i" value="@subtotal" type="number" readonly="readonly" />
-                </td>
-                <td>
-                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-reisId="@Model.Cart[i].ReisId">
-                        <img src="~/images/delete.png" width="25" height="25" />
-                    </a>
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <input id="@("txtSubTotal") + @i" value="@subtotal" type="number" readonly="readonly" />
+                    </td>
+                    <td>
+                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-reisId="@Model.Cart[i].ReisId">
+                            <img src="~/images/delete.png" width="25" height="25" />
+                        </a>
+                    </td>
+                </tr>
             }
 
             <tr>

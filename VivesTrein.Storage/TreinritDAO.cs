@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using VivesTrein.Domain;
 using VivesTrein.Domain.Entities;
+using VivesTrein.Storage.Interfaces;
 
 namespace VivesTrein.Storage
 {
-    public class TreinritDAO
+    public class TreinritDAO : IDAO<Treinrit>
     {
         private readonly vivestrainContext _db;
 
@@ -30,6 +31,26 @@ namespace VivesTrein.Storage
                 return db.Treinrit
                           .Where(x => x.Vertrekstad == vertrekstad && x.Bestemmingsstad == aankomststad && x.Vertrek >= vertrekuur).FirstOrDefault();
             }
+        }
+
+        public Treinrit FindById(int? Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(Treinrit entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Treinrit entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Treinrit entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

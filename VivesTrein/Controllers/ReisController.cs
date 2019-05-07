@@ -36,7 +36,6 @@ namespace VivesTrein.Controllers
             {
                 return BadRequest();
             }
-
             
                 //Data uit de VM halen
                 Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
@@ -51,14 +50,12 @@ namespace VivesTrein.Controllers
 
             if (vrijeplaats)
             {
-                return View("ShowReis2", reis); // later mss met ajax en de partial in reis
+                return View("ShowReis", reis); // later mss met ajax en de partial in reis
             }
             else
             {
-                //Tonen aan gebruiker dat er niet genoeg plaats is op treinritten om de reis te maken
+                return View("ShowReis", null); //Tonen aan gebruiker dat er niet genoeg plaats is op treinritten om de reis te maken
             }
-            
-            return View(reisVM);
         }
 
         public IActionResult AddToCart(int? id)
@@ -68,8 +65,9 @@ namespace VivesTrein.Controllers
                 return BadRequest();
             }
 
-            Reis reis = reisService.Get(Convert.ToInt16(id));
+            Reis reis = reisService.FindById(Convert.ToInt16(id));
 
+            // CartVM item aanmaken
             CartVM item = new CartVM
             {
                 ReisId = reis.Id,
@@ -81,6 +79,8 @@ namespace VivesTrein.Controllers
                 DateCreated = DateTime.Now,
             };
 
+
+            // ShoppingCartVM opvullen
             ShoppingCartVM shopping;
 
             if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)

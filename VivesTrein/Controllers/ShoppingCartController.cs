@@ -20,9 +20,6 @@ namespace VivesTrein.Controllers
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
-            // call sessionId
-            var SessionId = HttpContext.Session.Id;
-
             return View(cartList);
         }
 
@@ -41,7 +38,7 @@ namespace VivesTrein.Controllers
             {
                 cartList.Cart.Remove(itemToRemove);
                 HttpContext.Session.SetObject("ShoppingCart", cartList);
-                reisService.Delete(reisService.Get(Convert.ToInt16(reisId)));
+                reisService.Delete(reisService.FindById(Convert.ToInt16(reisId)));
             }
 
             if (cartList.Cart.Count != 0)
