@@ -78,9 +78,8 @@ namespace VivesTrein.Controllers
                     boeking = new Boeking();
                     boeking.UserId = userID;
                     boeking.ReisId = cart.ReisId;
-                    boeking.Status = "Betaalt";
+                    boeking.Status = "Betaald";
                     //boeking.Created = DateTime.UtcNow;
-                    boeking.Reis = reisService.FindById(cart.ReisId);
 
                     boekingService.Create(boeking);
                 }

@@ -32,9 +32,6 @@
                     @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                 </th>
-                <th>
-                    Subtotaal
-                </th>
             </tr>
             @{ float total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
@@ -58,13 +55,9 @@
                         <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
 
                         @{
-                            var subtotal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
-                            total += subtotal;
+                            total += Model.Cart[i].Prijs;
                         }
 
-                    </td>
-                    <td>
-                        <input id="@("txtSubTotal" + @i)" value="@subtotal" type="number" readonly="readonly" />
                     </td>
                     <td>
                         <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-reisId="@Model.Cart[i].ReisId">
@@ -75,7 +68,6 @@
             }
                 <tr>
                     <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <th>

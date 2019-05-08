@@ -39,9 +39,9 @@ namespace VivesTrein.Controllers
 
             Boeking boeking = boekingService.FindById(id);
 
-            if (boeking.Status == "betaalt")
+            if (boeking.Status == "Betaald")
             {
-                boeking.Status = "geannuleerd";
+                boeking.Status = "Geannuleerd";
                 boekingService.Update(boeking);
             }
 
