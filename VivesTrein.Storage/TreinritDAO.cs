@@ -26,11 +26,8 @@ namespace VivesTrein.Storage
 
         public Treinrit FindTreinrit(Stad vertrekstad, Stad aankomststad, DateTime vertrekuur)
         {
-            using (vivestrainContext db = new vivestrainContext())
-            {
-                return db.Treinrit
+            return _db.Treinrit
                           .Where(x => x.Vertrekstad == vertrekstad && x.Bestemmingsstad == aankomststad && x.Vertrek >= vertrekuur).FirstOrDefault();
-            }
         }
 
         public Treinrit FindById(int? Id)
@@ -40,7 +37,8 @@ namespace VivesTrein.Storage
 
         public void Create(Treinrit entity)
         {
-            throw new NotImplementedException();
+            _db.Entry(entity).State = EntityState.Added;
+            _db.SaveChanges();
         }
 
         public void Delete(Treinrit entity)

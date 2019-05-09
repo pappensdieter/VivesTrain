@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using VivesTrein.Domain.Entities;
+using VivesTrein.Service.Utilities;
 
 namespace VivesTrein.Utilities
 {
@@ -55,6 +56,8 @@ namespace VivesTrein.Utilities
                                         Vrijeplaatsen = 100
                                     };
 
+                                    rit = CheckPeriod(rit);
+
                                     await db.AddAsync(rit);
 
                                     depDate = depDate.AddHours(2);
@@ -67,6 +70,28 @@ namespace VivesTrein.Utilities
                     await db.SaveChangesAsync();
                 }
             }
+        }
+
+        private static Treinrit CheckPeriod(Treinrit rit)
+        {
+            if (AppSettings.DateInPaasvakantie(rit.Vertrek))
+            {
+                if (rit.BestemmingsstadId == 1 || rit.BestemmingsstadId == 2 || rit.BestemmingsstadId == 4)
+                {
+                    rit.AtlZitplaatsen = 130;
+                    rit.Vrijeplaatsen = 130;
+                }
+            }
+            if (AppSettings.DateMonthBeforeKerst(rit.Vertrek))
+            {
+                if (rit.BestemmingsstadId == 1 || rit.BestemmingsstadId == 1)
+                {
+                    rit.AtlZitplaatsen = 130;
+                    rit.Vrijeplaatsen = 130;
+                }
+            }
+
+            return rit;
         }
 
         public static async Task CreateTreinrit()

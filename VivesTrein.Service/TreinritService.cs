@@ -5,6 +5,7 @@ using VivesTrein.Domain.Entities;
 using VivesTrein.Domain;
 using VivesTrein.Storage;
 using VivesTrein.Service.Interfaces;
+using VivesTrein.Service.Utilities;
 
 namespace VivesTrein.Service
 {

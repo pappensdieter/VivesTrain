@@ -32,15 +32,20 @@ namespace VivesTrein.Controllers
         [HttpPost]
         public IActionResult Index(ReisVM reisVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-            
                 //Data uit de VM halen
                 Stad vertrekstad = stadService.FindById(reisVM.VerstrekStadId);
                 Stad aankomststad = stadService.FindById(reisVM.AankomstStadId);
                 DateTime date = reisVM.VertrekDatum;
+
+                if (!((date - DateTime.Now).TotalDays < 14))
+                {
+                    ViewBag.lstStad = new SelectList(stadService.GetAll(), "Id", "Naam");
+                    ViewBag.Error = "U kan alleen reizen boeken binnen 14 dagen.";
+                    return View();
+                }
+
                 Boolean bussiness = reisVM.BussinessClass;
                 String naam = reisVM.Naam;
                 int aantal = reisVM.Aantal;
@@ -48,7 +53,10 @@ namespace VivesTrein.Controllers
                 //Reis maken
                 Reis reis = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
 
-                return View("ShowReis", reis); // later mss met ajax en de partial in reis
+                 return View("ShowReis", reis); // later mss met ajax en de partial in reis
+            }
+            ViewBag.lstStad = new SelectList(stadService.GetAll(), "Id", "Naam");
+            return View();
         }
 
         public IActionResult AddToCart(int? id)
