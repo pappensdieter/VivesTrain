@@ -92,9 +92,11 @@ namespace VivesTrein.Service
                 Vertrekstad = vertrekstad,
                 Bestemmingsstad = aankomststad,
                 Naam = naam,
-                Prijs = prijs,
+                Prijs = prijs * aantalZitp,
                 Aantal = aantalZitp
             };
+
+            Create(reis);
 
             ICollection<TreinritReis> colTreinritreis = new Collection<TreinritReis>();
             foreach(Treinrit treinrit in treinritten)
@@ -115,14 +117,12 @@ namespace VivesTrein.Service
                     };
                     treinrit.Vrijeplaatsen--;
                     colTreinritreis.Add(treinritreis);
+
+                    treinritReisService.Create(treinritreis);
                 }
             }
 
             reis.TreinritReis = colTreinritreis;
-
-            reis.Prijs = reis.Prijs * aantalZitp;
-
-            Create(reis);
 
             return reis;
         }
