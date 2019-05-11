@@ -97,7 +97,7 @@
 
     <div>
         <a asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a> |
-        <a asp-action="Index">Annuleren</a>
+        <a asp-controller="Reis" asp-action="RemoveReis" asp-route-id="@Model.Id">Annuleren</a>
     </div>
 }
 else
