@@ -50,7 +50,8 @@ namespace VivesTrein.Storage
 
         public void Update(Treinrit entity)
         {
-            throw new NotImplementedException();
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.SaveChanges();
         }
     }
 }

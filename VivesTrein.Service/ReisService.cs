@@ -118,6 +118,7 @@ namespace VivesTrein.Service
                     treinrit.Vrijeplaatsen--;
                     colTreinritreis.Add(treinritreis);
 
+
                     treinritReisService.Create(treinritreis);
                 }
             }

@@ -45,7 +45,7 @@ namespace VivesTrein.Service
 
         public void Update(Treinrit entity)
         {
-            throw new NotImplementedException();
+            treinritDAO.Update(entity);
         }
     }
 }
