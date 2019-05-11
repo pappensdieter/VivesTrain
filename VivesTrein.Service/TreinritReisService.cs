@@ -20,7 +20,7 @@ namespace VivesTrein.Service
             return treinritReisDAO.FindTreinritReis(treinrit);
         }
 
-        public IEnumerable<TreinritReis> FindByReisId(int? Id)
+        public ICollection<TreinritReis> FindByReisId(int? Id)
         {
             return treinritReisDAO.FindByReisId(Id);
         }

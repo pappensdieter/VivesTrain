@@ -21,10 +21,10 @@ namespace VivesTrein.Storage
             return _db.TreinritReis.Where(x => x.Treinrit == treinrit).FirstOrDefault();
         }
 
-        public IEnumerable<TreinritReis> FindByReisId(int? Id)
+        public ICollection<TreinritReis> FindByReisId(int? Id)
         {
             return _db.TreinritReis
-                .Where(r => r.Id == Id)
+                .Where(r => r.ReisId == Id)
                 .ToList();
         }
 

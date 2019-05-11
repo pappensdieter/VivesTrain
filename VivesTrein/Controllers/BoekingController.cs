@@ -35,13 +35,17 @@ namespace VivesTrein.Controllers
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             
             IEnumerable<Boeking> listBoeking = boekingService.GetXForUser(userID, 10);
-            foreach (var item in listBoeking) {
-
+            foreach (var item in listBoeking)
+            {
                 item.Reis = reisService.FindById(item.ReisId);
                 item.Reis.Vertrekstad = stadService.FindById(item.Reis.VertrekstadId);
                 item.Reis.Bestemmingsstad = stadService.FindById(item.Reis.BestemmingsstadId);
+                item.Reis.TreinritReis = treinritReisService.FindByReisId(item.ReisId);
 
-                var list = treinritReisService.FindByReisId(item.ReisId);
+                foreach (var rit in item.Reis.TreinritReis)
+                {
+                    rit.Treinrit = treinritService.FindById(Convert.ToInt16(rit.TreinritId));
+                }
             }
 
             return View(listBoeking);
