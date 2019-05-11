@@ -20,7 +20,7 @@ namespace VivesTrein.Service
 
         public void Create(Treinrit entity)
         {
-            throw new NotImplementedException();
+            treinritDAO.Create(entity);
         }
 
         public void Delete(Treinrit entity)
@@ -30,7 +30,7 @@ namespace VivesTrein.Service
 
         public Treinrit FindById(int? Id)
         {
-            throw new NotImplementedException();
+            return treinritDAO.FindById(Id);
         }
 
         public IEnumerable<Treinrit> GetAll()
