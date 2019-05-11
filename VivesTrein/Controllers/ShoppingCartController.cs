@@ -17,11 +17,14 @@ namespace VivesTrein.Controllers
     {
         private ReisService reisService;
         private BoekingService boekingService;
+        private TreinritReisService treinritreisService;
 
         public IActionResult Index()
         {
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+
+            treinritreisService = new TreinritReisService();
 
             return View(cartList);
         }
@@ -41,6 +44,12 @@ namespace VivesTrein.Controllers
             {
                 cartList.Cart.Remove(itemToRemove);
                 HttpContext.Session.SetObject("ShoppingCart", cartList);
+                var toDeleteTreinritreis = treinritreisService.FindByReisId(Convert.ToInt16(reisId));
+
+                foreach (TreinritReis treinritreis in toDeleteTreinritreis)
+                {
+                    treinritreisService.Delete(treinritreis);
+                }
                 reisService.Delete(reisService.FindById(Convert.ToInt16(reisId)));
             }
 

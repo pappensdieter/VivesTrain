@@ -16,11 +16,13 @@ namespace VivesTrein.Controllers
     {
         private ReisService reisService;
         private StadService stadService;
+        private TreinritReisService treinritreisService;
 
         public ReisController()
         {
             reisService = new ReisService();
             stadService = new StadService();
+            treinritreisService = new TreinritReisService();
         }
 
         public IActionResult Index()
@@ -107,7 +109,15 @@ namespace VivesTrein.Controllers
                 return NotFound();
             }
 
+            var toDeleteTreinritreis = treinritreisService.FindByReisId(Convert.ToInt16(id));
+
+            foreach(TreinritReis treinritreis in toDeleteTreinritreis)
+            {
+                treinritreisService.Delete(treinritreis);
+            }
+
             reisService.Delete(reisService.FindById(Convert.ToInt16(id)));
+
 
             return RedirectToAction("Index", "Reis");
         }

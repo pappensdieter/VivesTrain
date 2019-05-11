@@ -145,6 +145,10 @@ namespace VivesTrein.Domain.Entities
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Datecreated)
+                    .HasColumnName("datecreated")
+                    .HasColumnType("date");
+
                 entity.Property(e => e.ReisId).HasColumnName("reis_id");
 
                 entity.Property(e => e.Status)

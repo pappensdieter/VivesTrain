@@ -9,6 +9,7 @@ namespace VivesTrein.Domain.Entities
         public string UserId { get; set; }
         public int ReisId { get; set; }
         public string Status { get; set; }
+        public DateTime? Datecreated { get; set; }
 
         public Reis Reis { get; set; }
         public AspNetUsers User { get; set; }
