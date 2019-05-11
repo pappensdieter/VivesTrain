@@ -99,5 +99,17 @@ namespace VivesTrein.Controllers
 
             return RedirectToAction("Index", "ShoppingCart");
         }
+
+        public IActionResult RemoveReis(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            reisService.Delete(reisService.FindById(Convert.ToInt16(id)));
+
+            return RedirectToAction("Index", "Reis");
+        }
     }
 }
