@@ -32,7 +32,9 @@ namespace VivesTrein.Storage
 
         public Treinrit FindById(int? Id)
         {
-            throw new NotImplementedException();
+            return _db.Treinrit
+                .Where(r => r.Id == Id)
+                .First();
         }
 
         public void Create(Treinrit entity)

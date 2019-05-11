@@ -19,5 +19,20 @@ namespace VivesTrein.Service
         {
             return treinritReisDAO.FindTreinritReis(treinrit);
         }
+
+        public IEnumerable<TreinritReis> FindByReisId(int? Id)
+        {
+            return treinritReisDAO.FindByReisId(Id);
+        }
+
+        public void Create(TreinritReis entity)
+        {
+            treinritReisDAO.Create(entity);
+        }
+
+        public void Delete(TreinritReis entity)
+        {
+            treinritReisDAO.Delete(entity);
+        }
     }
 }
