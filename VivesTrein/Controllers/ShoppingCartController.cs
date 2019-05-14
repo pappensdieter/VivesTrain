@@ -24,6 +24,7 @@ namespace VivesTrein.Controllers
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
+            reisService = new ReisService();
             treinritreisService = new TreinritReisService();
 
             return View(cartList);
@@ -35,14 +36,18 @@ namespace VivesTrein.Controllers
             {
                 return NotFound();
             }
-
-            reisService = new ReisService();
+            
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
             var itemToRemove = cartList.Cart.FirstOrDefault(r => r.ReisId == reisId);
             if (itemToRemove != null)
             {
                 cartList.Cart.Remove(itemToRemove);
+
+                if (cartList.Cart.Count == 0)
+                {
+                    cartList = null;
+                }
                 HttpContext.Session.SetObject("ShoppingCart", cartList);
                 var toDeleteTreinritreis = treinritreisService.FindByReisId(Convert.ToInt16(reisId));
 
@@ -53,12 +58,34 @@ namespace VivesTrein.Controllers
                 reisService.Delete(reisService.FindById(Convert.ToInt16(reisId)));
             }
 
-            if (cartList.Cart.Count == 0)
-            {
-                cartList = null;
-            }
             return View("index", cartList);
         }
+
+        public IActionResult DeleteAll()
+        {
+            ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            if (cartList != null)
+            {
+                List<CartVM> carts = cartList.Cart;
+
+                foreach (CartVM cart in carts)
+                {
+                    var toDeleteTreinritreis = treinritreisService.FindByReisId(Convert.ToInt16(cart.ReisId));
+
+                    foreach (TreinritReis treinritreis in toDeleteTreinritreis)
+                    {
+                        treinritreisService.Delete(treinritreis);
+                    }
+                    reisService.Delete(reisService.FindById(Convert.ToInt16(cart.ReisId)));
+                }
+
+                cartList = null;
+                HttpContext.Session.SetObject("ShoppingCart", cartList);
+            }
+            
+            return View("index", cartList);
+        }
+
 
         [Authorize]
         [HttpPost]
