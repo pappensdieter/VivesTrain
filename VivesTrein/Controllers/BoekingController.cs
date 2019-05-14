@@ -35,7 +35,26 @@ namespace VivesTrein.Controllers
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             IEnumerable<Boeking> listBoeking = boekingService.GetXForUser(userID, 10);
+
             foreach (var item in listBoeking)
+            {
+                IEnumerable<TreinritReis> treinritReis = treinritReisService.FindByReisId(item.ReisId);
+                Treinrit treinrit = treinritService.FindById(treinritReis.First().TreinritId);
+                var vertekDatum = treinrit.Vertrek;
+
+                var dateNow = DateTime.UtcNow;
+
+                if (vertekDatum < dateNow)
+                {
+                    if (item.Status != "Voltooid")
+                    {
+                        item.Status = "Voltooid";
+                        boekingService.Update(item);
+                    }
+                }
+            }
+
+                foreach (var item in listBoeking)
             {
                 IEnumerable<TreinritReis> treinritReis = treinritReisService.FindByReisId(item.ReisId);
                 Treinrit treinrit = treinritService.FindById(treinritReis.First().TreinritId);
