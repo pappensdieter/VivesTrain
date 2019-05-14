@@ -53,14 +53,11 @@ namespace VivesTrein.Controllers
                 reisService.Delete(reisService.FindById(Convert.ToInt16(reisId)));
             }
 
-            if (cartList.Cart.Count != 0)
+            if (cartList.Cart.Count == 0)
             {
-                return View("index", cartList);
+                cartList = null;
             }
-            else
-            {
-                return RedirectToAction("Index", "Reis");
-            }
+            return View("index", cartList);
         }
 
         [Authorize]
@@ -76,6 +73,10 @@ namespace VivesTrein.Controllers
 
             // opvragen UserId
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            // opvragen cartlist
+            ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+
             reisService = new ReisService();
             boekingService = new BoekingService();
 
@@ -88,10 +89,12 @@ namespace VivesTrein.Controllers
                     boeking.UserId = userID;
                     boeking.ReisId = cart.ReisId;
                     boeking.Status = "Betaald";
-                    //boeking.Created = DateTime.UtcNow;
+                    boeking.Datecreated = DateTime.UtcNow;
 
                     boekingService.Create(boeking);
                 }
+                cartList = null;
+                HttpContext.Session.SetObject("ShoppingCart", cartList);
             }
             catch (Exception e)
             {

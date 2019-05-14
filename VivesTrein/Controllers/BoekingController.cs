@@ -54,7 +54,7 @@ namespace VivesTrein.Controllers
                 }
             }
 
-                foreach (var item in listBoeking)
+            foreach (var item in listBoeking)
             {
                 IEnumerable<TreinritReis> treinritReis = treinritReisService.FindByReisId(item.ReisId);
                 Treinrit treinrit = treinritService.FindById(treinritReis.First().TreinritId);
