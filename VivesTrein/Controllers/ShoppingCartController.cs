@@ -24,7 +24,7 @@ namespace VivesTrein.Controllers
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
-            treinritreisService = new TreinritReisService();
+        
 
             return View(cartList);
         }
@@ -37,6 +37,7 @@ namespace VivesTrein.Controllers
             }
 
             reisService = new ReisService();
+            treinritreisService = new TreinritReisService();
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
             var itemToRemove = cartList.Cart.FirstOrDefault(r => r.ReisId == reisId);
@@ -88,7 +89,7 @@ namespace VivesTrein.Controllers
                     boeking.UserId = userID;
                     boeking.ReisId = cart.ReisId;
                     boeking.Status = "Betaald";
-                    //boeking.Created = DateTime.UtcNow;
+                    boeking.Datecreated = DateTime.UtcNow;
 
                     boekingService.Create(boeking);
                 }

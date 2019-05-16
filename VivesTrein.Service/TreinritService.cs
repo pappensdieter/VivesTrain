@@ -45,7 +45,12 @@ namespace VivesTrein.Service
 
         public void Update(Treinrit entity)
         {
-            throw new NotImplementedException();
+            treinritDAO.Update(entity);
+        }
+
+        public void UpdateVrijeplaatsen(int treinritId)
+        {
+            treinritDAO.UpdateVrijeplaatsen(treinritId);
         }
     }
 }

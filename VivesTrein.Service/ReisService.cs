@@ -41,7 +41,6 @@ namespace VivesTrein.Service
 
         public Reis MakeReis(String naam, Boolean klasse, Stad vertrekstad, Stad aankomststad, DateTime date, int aantalZitp)
         {
-            //TODO: depdate mag niet meer dan 14 dagen verder zijn
             //TODO: wat als alle treinen geen plaats hebben voor je reis
 
             //Tussenstoppen opvragen
@@ -56,13 +55,13 @@ namespace VivesTrein.Service
                 //Controleren of genoeg plaats is anders andere treinrit zoeken
                 while (treinrit.Vrijeplaatsen < aantalZitp)
                 {
-                    //TODO: date verder dan 14 dagen?
                     date = treinrit.Vertrek.AddMinutes(10);
                     treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
                 }
                 treinritten.Add(treinrit);
                 prijs = treinrit.Prijs;
             }
+
             //Multireis
             else if(steden.Count > 2)
             {
@@ -98,15 +97,12 @@ namespace VivesTrein.Service
 
             Create(reis);
 
+            //Collection van treinritreizen maken die in reis gaat
             ICollection<TreinritReis> colTreinritreis = new Collection<TreinritReis>();
             foreach(Treinrit treinrit in treinritten)
             {
-                treinrit.Vertrekstad = stadService.FindById(treinrit.VertrekstadId);
-                treinrit.Bestemmingsstad = stadService.FindById(treinrit.BestemmingsstadId);
-
                 for(int i = 0; i < aantalZitp; i++)
                 {
-                    //Treinritreis aanmaken voor elke plaats
                     TreinritReis treinritreis = new TreinritReis
                     {
                         Treinrit = treinrit,
@@ -115,11 +111,23 @@ namespace VivesTrein.Service
                         ReisId = reis.Id,
                         Plaats = (treinrit.AtlZitplaatsen - treinrit.Vrijeplaatsen) + 1
                     };
-                    treinrit.Vrijeplaatsen--;
+
+                    var vrijeplaatsen = treinrit.Vrijeplaatsen;
+                    treinrit.Vrijeplaatsen = vrijeplaatsen - 1;
+                    treinritService.Update(treinrit);
+
                     colTreinritreis.Add(treinritreis);
 
                     treinritReisService.Create(treinritreis);
                 }
+            }
+
+            //Steden toevoegen om ze te tonen op ShowReis pagina
+            foreach(TreinritReis treinritreis in colTreinritreis)
+            {
+                Treinrit treinrit = treinritreis.Treinrit;
+                treinrit.Bestemmingsstad = stadService.FindById(treinrit.BestemmingsstadId);
+                treinrit.Vertrekstad = stadService.FindById(treinrit.VertrekstadId);
             }
 
             reis.TreinritReis = colTreinritreis;

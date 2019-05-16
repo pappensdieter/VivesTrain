@@ -48,9 +48,20 @@ namespace VivesTrein.Storage
             throw new NotImplementedException();
         }
 
+        public void UpdateVrijeplaatsen(int treinritId)
+        {
+            Treinrit treinrit = _db.Treinrit
+                .Where(r => r.Id == treinritId)
+                .First();
+            treinrit.Vrijeplaatsen = treinrit.Vrijeplaatsen - 1;
+            _db.Entry(treinrit).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
+
         public void Update(Treinrit entity)
         {
-            throw new NotImplementedException();
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.SaveChanges();
         }
     }
 }
