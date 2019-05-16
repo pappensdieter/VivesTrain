@@ -32,6 +32,11 @@
                     @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                 </th>
+                <th>
+                    <a asp-controller="ShoppingCart" asp-action="DeleteAll">
+                        <img src="~/images/delete.png" width="25" height="25" alt="Empty shoppingcart" />
+                    </a>
+                </th>
             </tr>
             @{ float total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
@@ -61,25 +66,25 @@
                     </td>
                     <td>
                         <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-reisId="@Model.Cart[i].ReisId">
-                            <img src="~/images/delete.png" width="25" height="25" />
+                            <img src="~/images/redX.png" width="25" height="25" alt="remove this item" />
                         </a>
                     </td>
                 </tr>
             }
-            <tr>
-                <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
-                <td></td>
-                <td></td>
-                <th>
-                    Total:
-                </th>
-                <td id="cart-total">
-                    <input id="txtTotal" value="@total" type="number" readonly="readonly" />
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+                <tr>
+                    <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Total:
+                    </th>
+                    <td id="cart-total">
+                        <input id="txtTotal" value="@total" type="number" readonly="readonly" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
         </table>
     </form>
 }
@@ -92,10 +97,10 @@ else
 <a asp-controller="Reis"
    asp-action="Index">
     Boek een reis
-</a>
-|
+</a> |
+
 <a asp-controller="Home"
    asp-action="Index">
-    Maak winkelmandje leeg
+    Ga terug
 </a>
 

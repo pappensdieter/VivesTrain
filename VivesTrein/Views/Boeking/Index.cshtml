@@ -4,11 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Uw historiek:</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,27 +28,47 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reis.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reis.Vertrekstad.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reis.Bestemmingsstad.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reis.TreinritReis.FirstOrDefault().Treinrit.Vertrek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Annuleren" asp-route-id="@item.Id">Annuleren</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reis.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reis.Vertrekstad.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reis.Bestemmingsstad.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reis.TreinritReis.FirstOrDefault().Treinrit.Vertrek)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Annuleren" asp-route-id="@item.Id" id="btn">Annuleren</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section scripts
+    {
+<script>
+        $("#btn").on("click",function()
+        {
+            let code = @TempData["Message"];
+            if (code == "1") {
+                alert("Over 3 dagen is uw reis. U kan uw boeking niet meer annuleren!");
+            }
+            if (code == "2") {
+                alert("Uw reis is al voltooid!");
+            }
+            if (code == "3") {
+                alert("Uw reis is al geannuleerd!");
+            }
+        });
+</script>
+}
