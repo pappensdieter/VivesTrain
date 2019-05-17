@@ -24,6 +24,12 @@ namespace VivesTrein.Storage
 
         }
 
+        public Stad FindIdByName(string stad)
+        {
+            return _db.Stad
+            .Where(x => x.Naam == stad).FirstOrDefault();
+        }
+
         public IEnumerable<Stad> GetAll()
         {
             return _db.Stad.ToList();

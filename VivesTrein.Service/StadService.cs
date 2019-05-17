@@ -31,13 +31,14 @@ namespace VivesTrein.Service
             return stadDAO.GetAll();
         }
 
-        public IList<Stad> GetTussenstoppen(Stad vertrekstad, Stad aankomststad){
+        public IList<Stad> GetTussenstoppen(Stad vertrekstad, Stad aankomststad)
+        {
             var tussenstoppen = treinritHelper.FindRoute(vertrekstad, aankomststad);
 
             route.Add(vertrekstad);
-            if(tussenstoppen != null)
+            if (tussenstoppen != null)
             {
-                foreach(Stad stad in tussenstoppen)
+                foreach (Stad stad in tussenstoppen)
                 {
                     route.Add(stad);
                 }
@@ -45,6 +46,11 @@ namespace VivesTrein.Service
             route.Add(aankomststad);
 
             return route;
+        }
+
+        public Stad FindIdByName(string stad)
+        {
+            return stadDAO.FindIdByName(stad);
         }
 
     }

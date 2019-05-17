@@ -23,6 +23,7 @@ namespace VivesTrein.Domain.Entities
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<Boeking> Boeking { get; set; }
+        public virtual DbSet<Hotel> Hotel { get; set; }
         public virtual DbSet<Reis> Reis { get; set; }
         public virtual DbSet<Stad> Stad { get; set; }
         public virtual DbSet<Treinrit> Treinrit { get; set; }
@@ -173,6 +174,29 @@ namespace VivesTrein.Domain.Entities
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Boeking_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Hotel>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Adres)
+                    .IsRequired()
+                    .HasColumnName("adres")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Link)
+                    .IsRequired()
+                    .HasColumnName("link")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Naam)
+                    .IsRequired()
+                    .HasColumnName("naam")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StadId).HasColumnName("stadId");
             });
 
             modelBuilder.Entity<Reis>(entity =>

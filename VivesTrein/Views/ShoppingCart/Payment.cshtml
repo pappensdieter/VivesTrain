@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<VivesTrein.Domain.Entities.Hotel>
 @{
     ViewData["Title"] = "Payment";
 }
@@ -7,5 +7,42 @@
 <p>Bedankt om een boeking te plaatsen bij VivesTrein</p><br />
 <p>U kan elk moment een mail ontvangen met uw ticket</p><br />
 <p>Voor uw historiek klik <a asp-controller="Boeking" asp-action="Index">hier</a></p>
+<div class="row">
+    <div class="col"><hr></div>
+</div>
+<h4>Wij hebben enkele hotels voor u gevonden bij aankomst:</h4><br />
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-sm-2">
+                    Hotelnaam
+                </th>
+                <th class="col-lg-4">
+                    Adres
+                </th>
+                <th class="col">
+                    Link
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-sm-2">
+                        @Html.DisplayFor(modelItem => item.Naam)
+                    </td>
+                    <td class="col">
+                        @Html.DisplayFor(modelItem => item.Adres)
+                    </td>
+                    <td class="col">
+                        <a>  @Html.DisplayFor(modelItem => item.Link)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 

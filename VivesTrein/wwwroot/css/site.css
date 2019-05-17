@@ -35,3 +35,11 @@ body {
         display: none;
     }
 }
+
+.col1 {
+    width: 20%;
+}
+
+.col2 {
+    width: 40%;
+}

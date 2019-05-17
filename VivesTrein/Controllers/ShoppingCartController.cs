@@ -19,11 +19,15 @@ namespace VivesTrein.Controllers
         private ReisService reisService;
         private BoekingService boekingService;
         private TreinritReisService treinritreisService;
+        private StadService stadService;
+        private HotelService hotelService;
         public ShoppingCartController()
         {
             reisService = new ReisService();
             treinritreisService = new TreinritReisService();
             boekingService = new BoekingService();
+            stadService = new StadService();
+            hotelService = new HotelService();
         }
 
 
@@ -122,6 +126,8 @@ namespace VivesTrein.Controllers
             }
 
             List<CartVM> carts = model.Cart;
+            List<String> aankomststeden = new List<String>();
+            List<Hotel> hotels = new List<Hotel>();
 
             // opvragen UserId en email
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -147,6 +153,7 @@ namespace VivesTrein.Controllers
 
                     boekingService.Create(boeking);
 
+                    aankomststeden.Add(cart.AankomstStad);
 
                     // reis in email steken
                     tickets += "<p>Ticket: " + cart.ReisId + " voor " + cart.Naam + " van " + cart.VertrekStad + " naar " + cart.AankomstStad + "</p>";
@@ -159,6 +166,16 @@ namespace VivesTrein.Controllers
                 await mail.SendEmailAsync(userEmail, "VivesTrein - Ticket(s)", body);
 
 
+                // zoek hotels voor aankomststad
+                foreach(String stadnaam in aankomststeden)
+                {
+                    IList<Hotel> foundHotels = hotelService.GetHotelsByStadName(stadnaam);
+                    foreach(Hotel hotel in foundHotels)
+                    {
+                        hotels.Add(hotel);
+                    }
+                }
+
                 // empty shoppingcart
                 cartList = null;
                 HttpContext.Session.SetObject("ShoppingCart", cartList);
@@ -168,7 +185,7 @@ namespace VivesTrein.Controllers
                 Console.Write(e);
             }
 
-            return View();
+            return View(hotels);
         }
     }
 }
