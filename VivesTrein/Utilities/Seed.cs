@@ -18,7 +18,7 @@ namespace VivesTrein.Utilities
                 var steden = db.Stad.ToList();
                 var dateNow = DateTime.UtcNow;
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 35; i++)
                 {
                     foreach (Stad vertrekstad in steden)
                     {
@@ -53,7 +53,7 @@ namespace VivesTrein.Utilities
                                         AtlZitplaatsen = 100,
                                         Vertrek = depDate,
                                         Aankomst = arrDate,
-                                        Vrijeplaatsen = 100
+                                        Vrijeplaatsen = 5
                                     };
 
                                     rit = CheckPeriod(rit);

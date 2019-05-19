@@ -41,6 +41,7 @@ namespace VivesTrein
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Name = ".VivesTrein.Session";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.IsEssential = true;
                 options.IdleTimeout = TimeSpan.FromSeconds(60);
             });
 

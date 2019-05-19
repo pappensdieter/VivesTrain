@@ -16,6 +16,7 @@ namespace VivesTrein.Controllers
     {
         private ReisService reisService;
         private StadService stadService;
+        private TreinritService treinritService;
         private TreinritReisService treinritreisService;
 
         public ReisController()
@@ -23,6 +24,7 @@ namespace VivesTrein.Controllers
             reisService = new ReisService();
             stadService = new StadService();
             treinritreisService = new TreinritReisService();
+            treinritService = new TreinritService();
         }
 
         public IActionResult Index()
@@ -47,15 +49,31 @@ namespace VivesTrein.Controllers
                     ViewBag.Error = "U kan alleen reizen boeken binnen 14 dagen.";
                     return View();
                 }
+                if(date < DateTime.Now)
+                {
+                    ViewBag.lstStad = new SelectList(stadService.GetAll(), "Id", "Naam");
+                    ViewBag.Error = "Uw vertrekdatum moet in de toekomst zijn.";
+                    return View();
+                }
 
                 Boolean bussiness = reisVM.BussinessClass;
                 String naam = reisVM.Naam;
                 int aantal = reisVM.Aantal;
 
                 //Reis maken
-                Reis reis = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
+                (Reis reis, String error) = reisService.MakeReis(naam, bussiness, vertrekstad, aankomststad, date, aantal);
 
-                 return View("ShowReis", reis); // later mss met ajax en de partial in reis
+                if (error.Equals(""))
+                {
+                    return View("ShowReis", reis); // later mss met ajax en de partial in reis
+                }
+                else
+                {
+                    ViewBag.lstStad = new SelectList(stadService.GetAll(), "Id", "Naam");
+                    ViewBag.Error = error;
+                    return View();
+                }
+                 
             }
             ViewBag.lstStad = new SelectList(stadService.GetAll(), "Id", "Naam");
             return View();
@@ -113,6 +131,11 @@ namespace VivesTrein.Controllers
 
             foreach(TreinritReis treinritreis in toDeleteTreinritreis)
             {
+                //Vrij plaatsen terugzetten
+                Treinrit treinrit = treinritService.FindById(treinritreis.TreinritId);
+                treinrit.Vrijeplaatsen = treinrit.Vrijeplaatsen + 1;
+                treinritService.Update(treinrit);
+
                 treinritreisService.Delete(treinritreis);
             }
 

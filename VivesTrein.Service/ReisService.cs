@@ -39,7 +39,7 @@ namespace VivesTrein.Service
             return reisDAO.GetAll();
         }
 
-        public Reis MakeReis(String naam, Boolean klasse, Stad vertrekstad, Stad aankomststad, DateTime date, int aantalZitp)
+        public (Reis, String) MakeReis(String naam, Boolean klasse, Stad vertrekstad, Stad aankomststad, DateTime date, int aantalZitp)
         {
             //TODO: wat als alle treinen geen plaats hebben voor je reis
 
@@ -55,8 +55,15 @@ namespace VivesTrein.Service
                 //Controleren of genoeg plaats is anders andere treinrit zoeken
                 while (treinrit.Vrijeplaatsen < aantalZitp)
                 {
-                    date = treinrit.Vertrek.AddMinutes(10);
-                    treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
+                    date = treinrit.Vertrek.AddMinutes(30);
+                    if (checkWithin14Days(date))
+                    {
+                        treinrit = treinritService.GetClosestTreinrit(vertrekstad, aankomststad, date);
+                    }
+                    else
+                    {
+                        return (null, "Er zijn geen reizen gevonden voor opgegeven data");
+                    }
                 }
                 treinritten.Add(treinrit);
                 prijs = treinrit.Prijs;
@@ -74,9 +81,14 @@ namespace VivesTrein.Service
                     //Controleren of genoeg plaats is anders andere treinrit zoeken
                     while(treinrit.Vrijeplaatsen < aantalZitp)
                     {
-                        //TODO: date verder dan 14 dagen?
                         depDate = treinrit.Vertrek.AddMinutes(10);
-                        treinrit = treinritService.GetClosestTreinrit(steden[i], steden[i + 1], depDate);
+                        if (checkWithin14Days(depDate))
+                        {
+                            treinrit = treinritService.GetClosestTreinrit(steden[i], steden[i + 1], depDate);
+                        }else
+                        {
+                            return (null, "Er zijn geen reizen gevonden voor opgegeven data");
+                        }
                     }
 
                     prijs += treinrit.Prijs;
@@ -133,7 +145,12 @@ namespace VivesTrein.Service
 
             reis.TreinritReis = colTreinritreis;
 
-            return reis;
+            return (reis, "");
+        }
+
+        public Boolean checkWithin14Days(DateTime date)
+        {
+            return ((date - DateTime.Now).TotalDays < 14);
         }
 
         public Reis FindById(int? Id)

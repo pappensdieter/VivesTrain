@@ -21,6 +21,7 @@ namespace VivesTrein.Controllers
         private TreinritReisService treinritreisService;
         private StadService stadService;
         private HotelService hotelService;
+        private TreinritService treinritService;
         public ShoppingCartController()
         {
             reisService = new ReisService();
@@ -28,6 +29,7 @@ namespace VivesTrein.Controllers
             boekingService = new BoekingService();
             stadService = new StadService();
             hotelService = new HotelService();
+            treinritService = new TreinritService();
         }
 
 
@@ -67,6 +69,11 @@ namespace VivesTrein.Controllers
 
                     foreach (TreinritReis treinritreis in toDeleteTreinritreis)
                     {
+                        //Vrij plaatsen terugzetten
+                        Treinrit treinrit = treinritService.FindById(treinritreis.TreinritId);
+                        treinrit.Vrijeplaatsen = treinrit.Vrijeplaatsen + 1;
+                        treinritService.Update(treinrit);
+
                         treinritreisService.Delete(treinritreis);
                     }
                     reisService.Delete(reisService.FindById(Convert.ToInt16(reisId)));
@@ -96,6 +103,11 @@ namespace VivesTrein.Controllers
 
                         foreach (TreinritReis treinritreis in toDeleteTreinritreis)
                         {
+                            //Vrij plaatsen terugzetten
+                            Treinrit treinrit = treinritService.FindById(treinritreis.TreinritId);
+                            treinrit.Vrijeplaatsen = treinrit.Vrijeplaatsen + 1;
+                            treinritService.Update(treinrit);
+
                             treinritreisService.Delete(treinritreis);
                         }
                         reisService.Delete(reisService.FindById(Convert.ToInt16(cart.ReisId)));
