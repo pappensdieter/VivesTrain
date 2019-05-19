@@ -33,7 +33,7 @@
 
                 </th>
                 <th>
-                   Verwijder reis
+                    Verwijder reis
                 </th>
             </tr>
             @{ float total = 0;}
@@ -85,6 +85,11 @@
             </tr>
         </table>
     </form>
+    <div>
+        <a asp-controller="ShoppingCart" asp-action="DeleteAll">
+            <img src="~/images/delete.png" width="25" height="25" alt="Empty shoppingcart" /> Winkelmandje leegmaken
+        </a>
+    </div>
 }
 else
 {
@@ -101,10 +106,6 @@ else
    asp-action="Index">
     Ga terug
 </a>
-<div>
-    <a asp-controller="ShoppingCart" asp-action="DeleteAll">
-        <img src="~/images/delete.png" width="25" height="25" alt="Empty shoppingcart" /> Winkelmandje leegmaken
-    </a>
-</div>
+
 
 
