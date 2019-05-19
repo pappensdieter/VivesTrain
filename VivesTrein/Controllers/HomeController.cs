@@ -15,7 +15,7 @@ namespace VivesTrein.Controllers
     {
         public IActionResult Index()
         {
-            //Seed.CreateTreinritten().Wait();
+            Seed.CreateTreinritten().Wait();
             //Seed.CreateHotels().Wait();
             return View();
         }
