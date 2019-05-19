@@ -18,6 +18,7 @@ namespace VivesTrein.Utilities
                 var steden = db.Stad.ToList();
                 var dateNow = DateTime.UtcNow;
 
+                //35 dagen
                 for (int i = 0; i < 35; i++)
                 {
                     foreach (Stad vertrekstad in steden)
@@ -28,8 +29,8 @@ namespace VivesTrein.Utilities
                             {
                                 var depDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 07, 00, 00);
 
-
-                                for (int j = 0; j < 3; j++)
+                                //5 keer per dag
+                                for (int j = 0; j < 5; j++)
                                 {
                                     (Double reisduur, Boolean day) = FindReisduur(vertrekstad, bestemmingsstad);
                                     DateTime arrDate = new DateTime();
@@ -53,7 +54,7 @@ namespace VivesTrein.Utilities
                                         AtlZitplaatsen = 100,
                                         Vertrek = depDate,
                                         Aankomst = arrDate,
-                                        Vrijeplaatsen = 5
+                                        Vrijeplaatsen = 100
                                     };
 
                                     rit = CheckPeriod(rit);
