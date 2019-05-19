@@ -333,20 +333,6 @@ namespace VivesTrein.Utilities
             }
         }
 
-        public static async Task CreateStad()
-        {
-            using (vivestrainContext db = new vivestrainContext())
-            {
-                Stad stad = new Stad
-                {
-                    Naam = "Banaan"
-                };
-
-                await db.AddAsync(stad);
-                await db.SaveChangesAsync();
-            }
-        }
-
         public static( Double, Boolean) FindReisduur(Stad vertrekstad, Stad bestemmingsstad)
         {
             Double time1u30 = 1.5;
